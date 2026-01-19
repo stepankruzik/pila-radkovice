@@ -14,12 +14,17 @@
         <strong>Pila Radkovice</strong>
         <span>Tradice od roku 1850</span>
       </a>
-      <nav class="nav">
+      <button class="hamburger" aria-label="Otevřít menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" id="main-nav">
         <a href="index.html">Domů</a>
-        <a href="sluzby.html">Služby</a>
-        <a href="cenik.html">Ceník</a>
-        <a href="historie.html">Příběh</a>
-        <a class="active" href="kontakty.html">Kontakt</a>
+        <a href="Sluzby.html">Služby</a>
+        <a href="Cenik.html">Ceník</a>
+        <a href="Historie.html">Příběh</a>
+        <a class="active" href="Kontakty.html">Kontakt</a>
       </nav>
     </div>
   </header>
@@ -139,6 +144,26 @@
   </footer>
 
   <script>document.getElementById("y").textContent = new Date().getFullYear();
+// Hamburger menu
+const hamburger = document.querySelector('.hamburger');
+const nav = document.getElementById('main-nav');
+if (hamburger && nav) {
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('open');
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 993) {
+        hamburger.classList.remove('active');
+        nav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+}
 let slideIndex = 0;
 const slides = document.querySelectorAll('.main-slide');
 const mainDots = document.querySelectorAll('.ind-dot');
