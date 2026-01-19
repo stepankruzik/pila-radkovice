@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pila Radkovice u Budče | Založeno 1850</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <strong>Pila Radkovice</strong>
+        <span>Tradice od roku 1850</span>
+      </a>
+      <nav class="nav">
+         <a class="active" href="index.html">Domů</a>
+        <a href="sluzby.html">Služby</a>
+        <a  href="cenik.html">Ceník</a>
+        <a href="historie.html">Příběh</a>
+        <a href="kontakty.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+<section class="main-carousel">
+  <div class="carousel-container">
+    
+    <div class="main-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img2.jpg');">
+      <div class="carousel-caption">
+        <h1>Dřevo s pamětí</h1>
+        <p>„Kde se moderní technologie setkává s poctivým řemeslem předků.“</p>
+      </div>
+    </div>
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img3.jpg');">
+      <div class="carousel-caption">
+        <h1>Tradice od roku 1850</h1>
+        <p>Poctivé zpracování dřeva v srdci Radkovic u Budče.</p>
+      </div>
+    </div>
+
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img4.jpg');">
+      <div class="carousel-caption">
+        <h1>Kvalitní pořez</h1>
+        <p>Zpracováváme kulatinu až do délky 20 metrů.</p>
+      </div>
+    </div>
+
+    <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="carousel-arrow next" onclick="changeSlide(1)">&#10095;</button>
+    
+    <div class="carousel-indicators">
+      <span class="ind-dot active" onclick="setSlide(0)"></span>
+      <span class="ind-dot" onclick="setSlide(1)"></span>
+      <span class="ind-dot" onclick="setSlide(2)"></span>
+    </div>
+  </div>
+</section>
+
+ <main class="container" style="margin-top: -20px; position: relative; z-index: 10; padding-bottom: 60px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+      
+      <article class="card">
+        <div class="card-pad">
+          <h2>Naše dědictví</h2>
+          <p>Již od roku 1850, kdy František Pacher položil základní kámen naší pily, zpracováváme surové dříví z lokálních lesů. Prošli jsme érou vodních kol i turbín, abychom vám dnes nabídli špičkový pořez.</p>
+          <br>
+          <a href="Historie.html" class="btn">Číst celý příběh</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-pad">
+          <h2>Co nabízíme</h2>
+          <ul style="list-style: none; padding: 0;">
+            <li style="margin-bottom: 10px;">🌲 <strong>Pořez kulatiny:</strong> Délky od 2 do 20 metrů.</li>
+            <li style="margin-bottom: 10px;">🚛 <strong>Doprava:</strong> Vlastní technika pro převoz sortimentu.</li>
+            <li style="margin-bottom: 10px;">⚖️ <strong>Výkup:</strong> Férové ceny dle aktuálních tržních standardů.</li>
+          </ul>
+          <br>
+           <a href="Sluzby.html" class="btn">Více o službách</a>
+        </div>
+      </article>
+      </div>
+        <div class="grid">
+
+    </div>
+  </main>
+
+  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+    <div class="container">
+      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
+      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById("y").textContent = new Date().getFullYear();
+
+let slideIndex = 0;
+const slides = document.querySelectorAll('.main-slide');
+const mainDots = document.querySelectorAll('.ind-dot');
+
+function showSlides(n) {
+  if (n >= slides.length) slideIndex = 0;
+  if (n < 0) slideIndex = slides.length - 1;
+  
+  slides.forEach(s => s.classList.remove('active'));
+  mainDots.forEach(d => d.classList.remove('active'));
+  
+  slides[slideIndex].classList.add('active');
+  mainDots[slideIndex].classList.add('active');
+}
+
+function changeSlide(n) { showSlides(slideIndex += n); }
+function setSlide(n) { showSlides(slideIndex = n); }
+
+setInterval(() => changeSlide(1), 5000);
+
+let miniIndex = 0;
+const miniSlides = document.querySelectorAll('.mini-slide');
+const miniDots = document.querySelectorAll('.dot');
+
+function showMiniSlides() {
+  miniSlides.forEach(s => s.classList.remove('active'));
+  miniDots.forEach(d => d.classList.remove('active'));
+  
+  miniIndex++;
+  if (miniIndex > miniSlides.length) miniIndex = 1;
+  
+  miniSlides[miniIndex-1].classList.add('active');
+  miniDots[miniIndex-1].classList.add('active');
+  
+  setTimeout(showMiniSlides, 4000);
+}
+showMiniSlides();
+
+document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

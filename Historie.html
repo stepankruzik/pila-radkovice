@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Příběh pily | Pila Radkovice</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.95);
+      cursor: pointer;
+    }
+    .lightbox-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80vh;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      animation: zoomIn 0.3s;
+    }
+    #lightbox-caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      text-align: center;
+      color: var(--gold);
+      font-family: 'Cinzel', serif;
+      padding: 20px 0;
+      font-size: 1.2rem;
+    }
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.8); opacity: 0;}
+      to {transform: scale(1); opacity: 1;}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <strong>Pila Radkovice</strong>
+        <span>Tradice od roku 1850</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Domů</a>
+        <a href="sluzby.html">Služby</a>
+        <a href="cenik.html">Ceník</a>
+        <a class="active" href="historie.html">Příběh</a>
+        <a href="kontakty.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+  <section class="main-carousel">
+  <div class="carousel-container">
+    
+    <div class="main-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img2.jpg');">
+      <div class="carousel-caption">
+        <h1>Dřevo s pamětí</h1>
+        <p>„Kde se moderní technologie setkává s poctivým řemeslem předků.“</p>
+      </div>
+    </div>
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img3.jpg');">
+      <div class="carousel-caption">
+        <h1>Tradice od roku 1850</h1>
+        <p>Poctivé zpracování dřeva v srdci Radkovic u Budče.</p>
+      </div>
+    </div>
+
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img4.jpg');">
+      <div class="carousel-caption">
+         <h1>Naše Historie</h1>
+      <p>Příběh odvahy, tradice a návratu k poctivému řemeslu</p>
+      </div>
+    </div>
+
+    <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="carousel-arrow next" onclick="changeSlide(1)">&#10095;</button>
+    
+    <div class="carousel-indicators">
+      <span class="ind-dot active" onclick="setSlide(0)"></span>
+      <span class="ind-dot" onclick="setSlide(1)"></span>
+      <span class="ind-dot" onclick="setSlide(2)"></span>
+    </div>
+  </div>
+</section>
+
+  <main class="container" style="margin-top: -50px; position: relative; z-index: 10; padding-bottom: 80px;">
+    
+    <div class="grid">
+      <article class="card">
+        <div class="card-pad prose">
+          <h2 style="font-family: 'Bodoni Moda', serif; color: var(--oak); border-bottom: 2px solid var(--gold); padding-bottom: 10px; display: inline-block;">O nás</h2>
+          
+          <p style="margin-top: 25px;">
+            Kořeny Pily Radkovice sahají až do roku **1850**, kdy ji založil František Pacher. Tato pila, původně součást vodního mlýna, prošla fascinujícím vývojem, který odráží technologický pokrok uplynulých staletí.
+          </p>
+
+          <p>
+            V počátcích byla pila poháněna vodním kolem, které čerpalo energii z vlastního pětihektarového rybníka. Tato síla stačila k pohonu katru i veškerého doprovodného strojního zařízení. Kolem roku **1900** však došlo k zanesení rybníka a novým zdrojem energie se stala řeka Želetavka.
+          </p>
+
+          <p>
+            Modernizace pokračovala instalací dvou Francisových turbín a později, pod vedením Josefa Pachera, přechodem na elektrický pohon. Po období znárodnění a službě v rámci JZD se pila po roce **1989** vrátila do soukromých rukou.
+          </p>
+
+          <p>
+            Po rozsáhlé rekonstrukci v letech **2015 až 2022** jsme v srpnu 2022 oficiálně obnovili provoz. Dnes jsme hrdým symbolem historie a průmyslu v našem regionu.
+          </p>
+
+          <h3 style="font-family: 'Bodoni Moda', serif; color: var(--gold); font-style: italic; margin-top: 30px;">Děkujeme, že jste se stali součástí našeho příběhu.</h3>
+        </div>
+      </article>
+
+      <aside>
+        <article class="card" style="background: var(--oak); color: black; border-color: var(--gold);">
+          <div class="card-pad">
+            <h3 style="color: var(--gold); font-family: 'Bodoni Moda', serif; margin-bottom: 20px;">Klíčové milníky</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 15px; border-left: 2px solid var(--gold); padding-left: 15px;">
+                <strong style="color: var(--gold); display: block;">1850</strong>
+                Založení Františkem Pacherem.
+              </li>
+              <li style="margin-bottom: 15px; border-left: 2px solid var(--gold); padding-left: 15px;">
+                <strong style="color: var(--gold); display: block;">1900</strong>
+                Změna pohonu na řeku Želetavku.
+              </li>
+              <li style="margin-bottom: 15px; border-left: 2px solid var(--gold); padding-left: 15px;">
+                <strong style="color: var(--gold); display: block;">2015 – 2022</strong>
+                Komplexní rekonstrukce areálu.
+              </li>
+              <li style="border-left: 2px solid var(--gold); padding-left: 15px;">
+                <strong style="color: var(--gold); display: block;">2022</strong>
+                Znovuspuštění ostrého provozu.
+              </li>
+            </ul>
+          </div>
+        </article>
+      </aside>
+    </div>
+
+    <section style="margin-top: 60px;">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="display: inline-block; border-bottom: 3px solid var(--gold); padding-bottom: 10px; font-family: 'Bodoni Moda', serif;">Kronika rekonstrukce</h2>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce1.jpg" alt="Demolice">
+          <div class="gallery-overlay">
+            <span>2015: Přípravné práce</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce2.jpg" alt="Základy">
+          <div class="gallery-overlay">
+            <span>2017: Betonáž základů</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce3.jpg" alt="Katr">
+          <div class="gallery-overlay">
+            <span>2020: Repase katru</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce4.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+         <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce5.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce6.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce7.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce8.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce9.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+          <div class="gallery-item" onclick="openLightbox(this)">
+          <img src="img/rekonstrukce10.jpg" alt="Dokončení">
+          <div class="gallery-overlay">
+            <span>2022: Hotový areál</span>
+            <p>Klikněte pro zvětšení</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="lightbox" class="lightbox">
+    <span class="close-lightbox" onclick="closeLightbox()">&times;</span>
+    <button class="lightbox-arrow prev" onclick="changeLightboxImage(-1); event.stopPropagation();">&#10094;</button>
+    
+    <div class="lightbox-wrapper" onclick="event.stopPropagation();">
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+    
+    <button class="lightbox-arrow next" onclick="changeLightboxImage(1); event.stopPropagation();">&#10095;</button>
+</div>
+
+  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+    <div class="container">
+      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
+      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+    </div>
+  </footer>
+
+  <script>
+   let currentLightboxIndex = 0;
+const galleryImages = document.querySelectorAll('.gallery-item img');
+const galleryCaptions = document.querySelectorAll('.gallery-overlay span');
+
+function openLightbox(element) {
+  const clickedImg = element.querySelector('img');
+  galleryImages.forEach((img, index) => {
+    if (img.src === clickedImg.src) currentLightboxIndex = index;
+  });
+
+  updateLightbox();
+  document.getElementById("lightbox").style.display = "flex";
+  document.getElementById("lightbox").style.alignItems = "center";
+  document.getElementById("lightbox").style.justifyContent = "center";
+}
+
+function updateLightbox() {
+  const lightboxImg = document.getElementById("lightbox-img");
+  const captionText = document.getElementById("lightbox-caption");
+  
+  lightboxImg.src = galleryImages[currentLightboxIndex].src;
+  captionText.innerHTML = galleryCaptions[currentLightboxIndex].innerHTML;
+}
+
+function changeLightboxImage(direction) {
+  currentLightboxIndex += direction;
+  
+  if (currentLightboxIndex >= galleryImages.length) currentLightboxIndex = 0;
+  if (currentLightboxIndex < 0) currentLightboxIndex = galleryImages.length - 1;
+  
+  updateLightbox();
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+
+document.getElementById("lightbox").addEventListener("click", function(e) {
+  if (e.target === this) closeLightbox();
+});
+  
+  let slideIndex = 0;
+const slides = document.querySelectorAll('.main-slide');
+const mainDots = document.querySelectorAll('.ind-dot');
+
+function showSlides(n) {
+  if (n >= slides.length) slideIndex = 0;
+  if (n < 0) slideIndex = slides.length - 1;
+  
+  slides.forEach(s => s.classList.remove('active'));
+  mainDots.forEach(d => d.classList.remove('active'));
+  
+  slides[slideIndex].classList.add('active');
+  mainDots[slideIndex].classList.add('active');
+}
+
+function changeSlide(n) { showSlides(slideIndex += n); }
+function setSlide(n) { showSlides(slideIndex = n); }
+
+setInterval(() => changeSlide(1), 5000);
+
+let miniIndex = 0;
+const miniSlides = document.querySelectorAll('.mini-slide');
+const miniDots = document.querySelectorAll('.dot');
+
+function showMiniSlides() {
+  miniSlides.forEach(s => s.classList.remove('active'));
+  miniDots.forEach(d => d.classList.remove('active'));
+  
+  miniIndex++;
+  if (miniIndex > miniSlides.length) miniIndex = 1;
+  
+  miniSlides[miniIndex-1].classList.add('active');
+  miniDots[miniIndex-1].classList.add('active');
+  
+  setTimeout(showMiniSlides, 4000);
+}
+showMiniSlides();
+
+document.getElementById("y").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

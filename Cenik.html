@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ceník služeb | Pila Radkovice</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <strong>Pila Radkovice</strong>
+        <span>Tradice od roku 1850</span>
+      </a>
+      <nav class="nav">
+        <a href="index.html">Domů</a>
+        <a href="sluzby.html">Služby</a>
+        <a class="active" href="cenik.html">Ceník</a>
+        <a href="historie.html">Příběh</a>
+        <a href="kontakty.html">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+<section class="main-carousel">
+  <div class="carousel-container">
+    
+    <div class="main-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img2.jpg');">
+      <div class="carousel-caption">
+        <h1>Dřevo s pamětí</h1>
+        <p>„Kde se moderní technologie setkává s poctivým řemeslem předků.“</p>
+      </div>
+    </div>
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img3.jpg');">
+      <div class="carousel-caption">
+        <h1>Tradice od roku 1850</h1>
+        <p>Poctivé zpracování dřeva v srdci Radkovic u Budče.</p>
+      </div>
+    </div>
+
+    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img4.jpg');">
+      <div class="carousel-caption">
+        <h1>Kvalitní pořez</h1>
+        <p>Zpracováváme kulatinu až do délky 20 metrů.</p>
+      </div>
+    </div>
+
+    <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="carousel-arrow next" onclick="changeSlide(1)">&#10095;</button>
+    
+    <div class="carousel-indicators">
+      <span class="ind-dot active" onclick="setSlide(0)"></span>
+      <span class="ind-dot" onclick="setSlide(1)"></span>
+      <span class="ind-dot" onclick="setSlide(2)"></span>
+    </div>
+  </div>
+</section>
+
+  <main class="container" style="margin-top: -50px; position: relative; z-index: 10; padding-bottom: 80px;">
+    
+    <div class="grid">
+      <section class="card">
+        <div class="card-pad">
+          <h2>Pořez kulatiny</h2>
+          <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.8;">Ceny jsou uvedeny za m³ řeziva. U zakázek nad 20 m³ nabízíme individuální slevy.</p>
+          
+          <div class="table-wrap">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Typ práce</th>
+                  <th style="text-align: right;">Cena bez DPH</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Pořez jednostranný</strong> (hranění)</td>
+                  <td style="text-align: right;"><span class="highlight">600 Kč</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Pořez dvoustranný</strong> (plné řezivo)</td>
+                  <td style="text-align: right;"><span class="highlight">800 Kč</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Speciální délky</strong> (nad 12 m)</td>
+                  <td style="text-align: right;">individuálně</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-pad">
+          <h2>Výkup kulatiny</h2>
+          <p style="margin-bottom: 20px; font-size: 0.9rem; opacity: 0.8;">Aktuální výkupní ceny pro rok 2025/2026. Cena závisí na kvalitě a třídění.</p>
+          
+          <div class="table-wrap">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Smrk (čep 16cm+)</th>
+                  <th style="text-align: right;">Cena / m³</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Délka 8 m (standard)</td>
+                  <td style="text-align: right;"><span class="highlight">2 350 Kč</span></td>
+                </tr>
+                <tr>
+                  <td>Délka 4–5 m</td>
+                  <td style="text-align: right;"><span class="highlight">2 150 Kč</span></td>
+                </tr>
+                <tr>
+                  <td>Výběrová kulatina (třída A)</td>
+                  <td style="text-align: right;"><span class="highlight">2 550 Kč</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="card" style="border-left: 5px solid var(--gold); background: #fff;">
+        <div class="card-pad">
+            <h3>Důležité informace</h3>
+            <p style="margin-top: 10px;">Finální cena výkupu i pořezu je vždy stanovena po osobní prohlídce materiálu. Na cenu má vliv zejména: <strong>rovnost kmene, sukovitost, čerstvost a lokalita odvozu.</strong></p>
+            <div style="margin-top: 25px;">
+                <a href="kontakty.html" class="btn">Poptat kalkulaci na míru</a>
+            </div>
+        </div>
+    </div>
+
+  </main>
+
+  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+    <div class="container">
+      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
+      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById("y").textContent = new Date().getFullYear();
+
+let slideIndex = 0;
+const slides = document.querySelectorAll('.main-slide');
+const mainDots = document.querySelectorAll('.ind-dot');
+
+function showSlides(n) {
+  if (n >= slides.length) slideIndex = 0;
+  if (n < 0) slideIndex = slides.length - 1;
+  
+  slides.forEach(s => s.classList.remove('active'));
+  mainDots.forEach(d => d.classList.remove('active'));
+  
+  slides[slideIndex].classList.add('active');
+  mainDots[slideIndex].classList.add('active');
+}
+
+function changeSlide(n) { showSlides(slideIndex += n); }
+function setSlide(n) { showSlides(slideIndex = n); }
+
+setInterval(() => changeSlide(1), 5000);
+
+
+let miniIndex = 0;
+const miniSlides = document.querySelectorAll('.mini-slide');
+const miniDots = document.querySelectorAll('.dot');
+
+function showMiniSlides() {
+  miniSlides.forEach(s => s.classList.remove('active'));
+  miniDots.forEach(d => d.classList.remove('active'));
+  
+  miniIndex++;
+  if (miniIndex > miniSlides.length) miniIndex = 1;
+  
+  miniSlides[miniIndex-1].classList.add('active');
+  miniDots[miniIndex-1].classList.add('active');
+  
+  setTimeout(showMiniSlides, 4000);
+}
+showMiniSlides();
+
+document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
