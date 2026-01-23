@@ -1,129 +1,6 @@
-@media (max-width: 768px) {
-  main .container > div[style*="grid-template-columns"] {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-  }
-  main .container > div[style*="grid-template-columns"] > article {
-    width: 100%;
-    margin-bottom: 0;
-  }
-}
-/* --- HAMBURGER MENU --- */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  background: var(--wood-dark);
-  border: 2px solid var(--gold);
-  border-radius: 50%;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
-  cursor: pointer;
-  z-index: 1201;
-  margin: 0 auto;
-  transition: background 0.3s, border 0.3s;
-}
-.hamburger span {
-  display: block;
-  height: 4px;
-  width: 28px;
-  background: var(--gold);
-  margin: 5px 0;
-  border-radius: 2px;
-  transition: 0.4s cubic-bezier(.68,-0.55,.27,1.55);
-}
-.hamburger.active span:nth-child(1) {
-  transform: translateY(10px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-10px) rotate(-45deg);
-}
-
-@media (max-width: 992px) {
-  .hamburger {
-    display: flex;
-    margin: 0 auto 10px auto;
-  }
-  .header-inner {
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
-  .nav {
-    position: absolute;
-    left: 50%;
-    top: 100%;
-    transform: translate(-50%, -200%);
-    background: var(--wood-dark);
-    flex-direction: column;
-    width: 90vw;
-    max-width: 340px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-    border-radius: 18px;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.4s cubic-bezier(.68,-0.55,.27,1.55);
-    z-index: 1200;
-    margin-top: 8px;
-    padding: 18px 0 10px 0;
-    text-align: center;
-  }
-  .nav.open {
-    transform: translate(-50%, 0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-  .nav a {
-    margin: 10px 0;
-    font-size: 1.1rem;
-    padding: 8px 0;
-    border-radius: 8px;
-    transition: background 0.2s, color 0.2s;
-    display: block;
-  }
-  .nav a.active {
-    background: linear-gradient(90deg, #c5a059 80%, #fffbe6 100%);
-    color: #2c2c2c;
-    font-weight: 700;
-    box-shadow: 0 2px 8px rgba(197,160,89,0.12);
-    border: 1.5px solid #b89a4d;
-  }
-  .nav a:hover {
-    background: var(--gold);
-    color: var(--wood-dark);
-  }
-}
-@media (max-width: 768px) {
-  .carousel-caption h1 {
-    font-size: 1.3rem !important;
-  }
-  .carousel-caption p {
-    font-size: 0.95rem !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-caption h1 {
-    font-size: 1.05rem !important;
-  }
-  .carousel-caption p {
-    font-size: 0.8rem !important;
-  }
-}
-@media (max-width: 768px) {
-  main .container > div[style*="grid-template-columns"] {
-    display: block !important;
-  }
-  main .container > div[style*="grid-template-columns"] > article {
-    margin-bottom: 30px;
-  }
-}
+/* ============================================================
+   1. IMPORT PÍSEM A KOŘENOVÉ PROMĚNNÉ
+   ============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
@@ -134,6 +11,9 @@
   --white: #ffffff;
 }
 
+/* ============================================================
+   2. ZÁKLADNÍ RESET A TYPOGRAFIE
+   ============================================================ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -141,6 +21,7 @@ body {
   background-color: var(--paper);
   color: var(--text);
   line-height: 1.8;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -151,7 +32,9 @@ h1, h2, h3 {
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 25px; }
 
-/* HEADER & NAV */
+/* ============================================================
+   3. HLAVIČKA A NAVIGACE (Včetně Hamburger Menu)
+   ============================================================ */
 .site-header {
   background: var(--wood-dark);
   padding: 15px 0;
@@ -167,6 +50,7 @@ h1, h2, h3 {
 .brand strong { font-family: 'Cinzel', serif; font-size: 1.6rem; display: block; }
 .brand span { font-size: 0.75rem; color: var(--white); text-transform: uppercase; letter-spacing: 2px; }
 
+.nav { display: flex; }
 .nav a {
   text-decoration: none;
   color: var(--white);
@@ -177,21 +61,44 @@ h1, h2, h3 {
 }
 .nav a:hover, .nav a.active { color: var(--gold); }
 
-/* HLAVNÍ KARUSEL */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  background: var(--wood-dark);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1201;
+  transition: 0.3s;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  width: 24px;
+  background: var(--gold);
+  margin: 3px 0;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+/* ============================================================
+   4. HLAVNÍ KARUSEL A SCROLL ŠIPKA
+   ============================================================ */
 .main-carousel {
   position: relative;
-  height: 90vh; 
+  height: 90vh; /* Velká výška pro wow efekt */
   width: 100%;
   overflow: hidden;
   background: #000;
   border-bottom: 4px solid var(--gold);
 }
 
-.carousel-container { 
-  height: 100%; 
-  width: 100%; 
-  position: relative; 
-}
+.carousel-container { height: 100%; width: 100%; position: relative; }
 
 .main-slide {
   position: absolute;
@@ -199,57 +106,33 @@ h1, h2, h3 {
   background-size: cover;
   background-position: center;
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity 1s ease-in-out;
   z-index: 1;
 }
 
-.main-slide.active { 
-  opacity: 1; 
-  z-index: 2; 
-}
+.main-slide.active { opacity: 1; z-index: 2; }
 
 .carousel-caption {
   text-align: center;
   color: #fff;
   max-width: 900px;
-  padding: 50px; 
-  background: rgba(0,0,0,0.4); 
-  backdrop-filter: blur(8px); 
+  padding: 50px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(197, 160, 89, 0.4);
-  transform: translateY(-20px); 
-}
-
-.carousel-arrow {
-  padding: 20px 25px;
-  font-size: 2rem;
-}
-
-
-.carousel-indicators {
-  bottom: 40px; 
-}
-
-.carousel-caption {
-  text-align: center;
-  color: #fff;
-  max-width: 800px;
-  padding: 30px;
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(197, 160, 89, 0.3);
 }
 
 .carousel-caption h1 {
-  font-family: 'Playfair Display', serif;
   color: var(--gold);
   font-size: clamp(2rem, 6vw, 3.5rem);
   text-transform: uppercase;
+  margin-bottom: 15px;
 }
 
-/* OVLÁDÁNÍ KARUSELU */
+/* Navigační šipky karuselu */
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -258,23 +141,25 @@ h1, h2, h3 {
   background: rgba(44, 30, 20, 0.6);
   color: var(--gold);
   border: 1px solid var(--gold);
-  padding: 10px 15px;
+  padding: 15px 20px;
   cursor: pointer;
   font-size: 1.5rem;
+  transition: 0.3s;
 }
+.carousel-arrow:hover { background: var(--gold); color: var(--wood-dark); }
 .prev { left: 20px; }
 .next { right: 20px; }
 
+/* Tečky */
 .carousel-indicators {
   position: absolute;
-  bottom: 20px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
 }
 .ind-dot {
-  height: 10px;
-  width: 10px;
+  height: 10px; width: 10px;
   background: rgba(255,255,255,0.4);
   display: inline-block;
   margin: 0 5px;
@@ -283,7 +168,35 @@ h1, h2, h3 {
 }
 .ind-dot.active { background: var(--gold); width: 25px; border-radius: 10px; }
 
-/* KARTY */
+/* VELKÁ ŠIPKA DOLŮ (Scroll Button) */
+.scroll-down {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  color: var(--gold);
+  font-size: 2.5rem;
+  text-decoration: none;
+  animation: bounce 2s infinite;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+  40% {transform: translateX(-50%) translateY(-10px);}
+  60% {transform: translateX(-50%) translateY(-5px);}
+}
+
+/* ============================================================
+   5. OBSAH, KARTY A GRID
+   ============================================================ */
+main.container {
+  padding-top: 60px; /* Místo negativního marginu dáme prostor pod karuselem */
+  padding-bottom: 60px;
+}
+
 .card {
   background: var(--white);
   border: 1px solid #e0dcd0;
@@ -303,238 +216,68 @@ h1, h2, h3 {
   font-family: 'Cinzel', serif;
   font-weight: 700;
   border: 2px solid var(--gold);
+  transition: 0.3s;
 }
+.btn:hover { background: var(--gold); color: var(--wood-dark); }
 
-@media (max-width: 768px) {
-  .main-carousel { height: 40vh; }
-  .nav { flex-direction: column; text-align: center; }
-  .nav a { margin: 5px 0; }
-}
-
+/* ============================================================
+   6. GALERIE A LIGHTBOX
+   ============================================================ */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
-
 .gallery-item {
-  position: relative;
-  height: 300px; 
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  border: 4px solid var(--white); 
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative; height: 300px; overflow: hidden;
+  border: 4px solid var(--white); box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  cursor: pointer; transition: 0.4s;
 }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
+.gallery-item:hover img { transform: scale(1.1); }
 
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.gallery-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(61, 43, 31, 0.9) 0%, transparent 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 25px;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.gallery-overlay span {
-  color: var(--gold);
-  font-family: 'Cinzel', serif;
-  font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 5px;
-}
-
-.gallery-overlay p {
-  color: var(--white);
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-/* Efekty při najetí */
-.gallery-item:hover {
-  transform: translateY(-10px);
-  z-index: 5;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.15);
-}
-
-.gallery-item:hover .gallery-overlay {
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .gallery-item {
-    height: 250px;
-  }
-}
-/* --- LIGHTBOX (Zvětšení obrázku) --- */
 .lightbox {
-  display: none;
-  position: fixed;
-  z-index: 2000;
-  padding-top: 50px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.9);
-  cursor: pointer;
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.9); z-index: 2000;
+  justify-content: center; align-items: center;
 }
-
 .lightbox-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80vh;
-  border: 3px solid var(--gold);
-  animation: zoomIn 0.3s;
+  max-width: 85%; max-height: 80vh;
+  border: 3px solid var(--gold); animation: zoomIn 0.3s;
 }
-
-#lightbox-caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: var(--gold);
-  font-family: 'Cinzel', serif;
-  padding: 15px 0;
-  font-size: 1.2rem;
-}
-
-.close-lightbox {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  color: #fff;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-@keyframes zoomIn {
-  from {transform: scale(0.7); opacity: 0;}
-  to {transform: scale(1); opacity: 1;}
-}
-
-/* Styl pro šipky v Lightboxu */
 .lightbox-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(44, 30, 20, 0.7);
-  color: var(--gold);
-  border: 1px solid var(--gold);
-  padding: 20px;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 2100;
-  transition: 0.3s;
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(44,30,20,0.8); color: var(--gold);
+  border: 1px solid var(--gold); padding: 20px; font-size: 2rem;
 }
+.lightbox-arrow.prev { left: 20px; }
+.lightbox-arrow.next { right: 20px; }
 
-.lightbox-arrow:hover {
-  background: var(--gold);
-  color: #fff;
-}
+@keyframes zoomIn { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-.lightbox-arrow.prev { left: 30px; }
-.lightbox-arrow.next { right: 30px; }
-
-.lightbox-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 80%;
-}
-
-@media (max-width: 768px) {
-  .lightbox-arrow { padding: 10px; font-size: 1.5rem; }
-  .lightbox-arrow.prev { left: 10px; }
-  .lightbox-arrow.next { right: 10px; }
-}
-
+/* ============================================================
+   7. RESPONZIVITA
+   ============================================================ */
 @media (max-width: 992px) {
-  .grid, .grid-3 {
-    grid-template-columns: 1fr !important; 
-    gap: 20px;
+  .hamburger { display: flex; }
+  .header-inner { flex-direction: column; }
+  .nav {
+    position: absolute; top: 100%; left: 50%; transform: translate(-50%, -20px);
+    background: var(--wood-dark); flex-direction: column;
+    width: 90%; opacity: 0; pointer-events: none;
+    transition: 0.4s; padding: 20px; border-radius: 10px; text-align: center;
   }
+  .nav.open { opacity: 1; pointer-events: auto; transform: translate(-50%, 10px); }
+  .nav a { margin: 10px 0; display: block; }
   
-  main {
-    margin-top: -30px !important; 
-  }
+  .main-carousel { height: 60vh; }
+  .carousel-caption h1 { font-size: 1.8rem; }
 }
 
 @media (max-width: 768px) {
-  .main-carousel {
-    height: 50vh !important;
-  }
-
-  .carousel-caption {
-    padding: 20px;
-    margin: 0 10px;
-  }
-
-  .carousel-caption h1 {
-    font-size: 1.8rem !important;
-  }
-
-  /* Navigace */
-  .header-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .nav {
-    margin-top: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .nav a {
-    margin: 0 10px;
-    font-size: 0.8rem;
-  }
-
-  .lightbox-arrow {
-    padding: 15px;
-    font-size: 1.2rem;
-  }
-  
-  .lightbox-arrow.prev { left: 5px; }
-  .lightbox-arrow.next { right: 5px; }
+  main .container > div { display: block !important; }
+  .card-pad { padding: 20px; }
+  .main-carousel { height: 50vh; }
 }
 
-@media (max-width: 480px) {
-  .hero h1, .carousel-caption h1 {
-    font-size: 1.5rem !important;
-  }
-
-  .card-pad {
-    padding: 20px;
-  }
-
-  .btn {
-    width: 100%; 
-    text-align: center;
-    padding: 12px 10px;
-  }
-}
-
-.table-wrap {
-  width: 100%;
-  overflow-x: auto; 
-  -webkit-overflow-scrolling: touch;
-}
+.table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
