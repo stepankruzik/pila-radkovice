@@ -25,6 +25,7 @@
         <a href="Cenik.html">Ceník</a>
         <a href="Historie.html">Příběh</a>
         <a class="active" href="Kontakty.html">Kontakt</a>
+        <a href="Kubirace.html">Kubírování</a>
       </nav>
     </div>
   </header>
@@ -62,72 +63,74 @@
   </div>
   </section>
 
-  <main class="container" style="margin-top: -50px; position: relative; z-index: 10; padding-bottom: 80px;">
+  <main class="container page-content">
+    <section class="section-head">
+      <span class="eyebrow">Kontakt a poptávka</span>
+      <h2>Ozvěte se kvůli pořezu, výkupu i dopravě</h2>
+      <p class="lead">Na jednom místě najdeš rychlý kontakt, poptávkový formulář i mapu areálu. Pokud jdeš z kubírovací laboratoře, shrnutí ti sem umíme rovnou přenést.</p>
+    </section>
     
-    <div class="grid" style="margin-bottom: 40px;">
+    <div class="contact-grid" style="margin-bottom: 40px;">
       <section class="card">
         <div class="card-pad">
-          <h2 style="font-family: 'Playfair Display', serif; color: var(--wood-dark); border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px;">Sídlo pily</h2>
+          <h2 class="accent-title">Sídlo pily</h2>
           <div>
             <p><strong>Pila Radkovice u Budče</strong></p>
             <p>Radkovice u Budče 40</p>
             <p>380 01 Dačice</p>
           </div>
-          <div style="margin-top: 20px; padding: 15px; background: #fdfaf3; border-left: 4px solid var(--gold);">
-            <p style="font-size: 0.85rem; margin: 0; color: var(--text);"><strong>Návštěvy:</strong> Prosíme o telefonickou domluvu předem, abychom se vám mohli plně věnovat přímo v areálu.</p>
+          <div class="notice-box">
+            <p><strong>Návštěvy:</strong> Prosíme o telefonickou domluvu předem, abychom se vám mohli plně věnovat přímo v areálu.</p>
           </div>
         </div>
       </section>
 
-      <section class="card">
+      <section class="card surface-dark">
         <div class="card-pad">
-          <h2 style="font-family: 'Playfair Display', serif; color: var(--wood-dark); border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px;">Jednatel</h2>
+          <h2 class="accent-title accent-title-light">Jednatel</h2>
           <div>
-            <p style="font-size: 1.2rem; font-weight: 600; color: var(--wood-dark);">Zdeněk Kružík</p>
+            <p class="contact-person">Zdeněk Kružík</p>
             <p style="margin-top: 10px;">
-              <a href="tel:+420735843011" style="font-size: 1.1rem; color: var(--wood-dark); text-decoration: none; font-weight: 600;">+420 735 843 011</a>
+              <a href="tel:+420735843011" class="contact-link">+420 735 843 011</a>
             </p>
             <p>
-              <a href="mailto:zdenda.kruzik@seznam.cz" style="color: var(--gold); font-weight: 600;">zdenda.kruzik@seznam.cz</a>
+              <a href="mailto:zdenda.kruzik@seznam.cz" class="contact-link">zdenda.kruzik@seznam.cz</a>
             </p>
           </div>
-          <div style="margin-top: 25px;">
+          <div class="button-row">
             <a href="tel:+420735843011" class="btn">Zavolat nyní</a>
           </div>
         </div>
       </section>
     </div>
 
-    <div class="grid" style="grid-template-columns: 1.5fr 1fr;">
-      <section class="card">
+    <div class="contact-grid contact-grid-wide">
+      <section class="card" id="poptavka">
         <div class="card-pad">
-          <h2 style="font-family: 'Playfair Display', serif; color: var(--wood-dark); margin-bottom: 20px;">Rychlá poptávka</h2>
+          <h2 class="accent-title">Rychlá poptávka</h2>
           <form onsubmit="sendEmail(event)">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-              <div>
-                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; color: var(--gold);">Vaše jméno</label>
-                <input id="f_name" type="text" style="width: 100%; padding: 12px; border: 1px solid #d4ccb0; background: var(--paper);" placeholder="Jan Novák" required>
+            <div class="form-grid" style="margin-bottom: 20px;">
+              <div class="field">
+                <label for="f_name">Vaše jméno</label>
+                <input class="input" id="f_name" type="text" placeholder="Jan Novák" required>
               </div>
-              <div>
-                <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; color: var(--gold);">Telefon / Email</label>
-                <input id="f_contact" type="text" style="width: 100%; padding: 12px; border: 1px solid #d4ccb0; background: var(--paper);" placeholder="Kde vás zastihneme" required>
+              <div class="field">
+                <label for="f_contact">Telefon / Email</label>
+                <input class="input" id="f_contact" type="text" placeholder="Kde vás zastihneme" required>
               </div>
             </div>
-            <div style="margin-bottom: 25px;">
-              <label style="display: block; font-size: 0.75rem; text-transform: uppercase; font-weight: 700; margin-bottom: 5px; color: var(--gold);">Zpráva (množství, typ dřeva, termín)</label>
-              <textarea id="f_msg" rows="5" style="width: 100%; padding: 12px; border: 1px solid #d4ccb0; background: var(--paper);" required></textarea>
+            <div class="field" style="margin-bottom: 25px;">
+              <label for="f_msg">Zpráva (množství, typ dřeva, termín)</label>
+              <textarea class="input" id="f_msg" rows="5" required></textarea>
             </div>
-            <button type="submit" class="btn" style="width: 100%; border-radius: 0;">Odeslat poptávku e-mailem</button>
+            <button type="submit" class="btn full-width-action">Odeslat poptávku e-mailem</button>
           </form>
         </div>
       </section>
 
-      <section class="card" style="padding: 0; overflow: hidden; border-color: var(--gold); height: 100%;">
+      <section class="card map-card">
         <iframe
           src="https://frame.mapy.cz/s/fukozomume"
-          width="100%"
-          height="100%"
-          style="min-height: 450px; border: 0; filter: grayscale(0.2) sepia(0.1);"
           allowfullscreen=""
           loading="lazy">
         </iframe>
@@ -136,74 +139,14 @@
 
   </main>
 
-  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+  <footer class="site-footer">
     <div class="container">
-      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
-      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+      <strong>Pila Radkovice u Budče</strong>
+      <p>Ozvi se pro pořez, výkup, dopravu nebo poptávku připravenou z kubírovací kalkulačky.</p>
+      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
     </div>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();
-// Hamburger menu
-const hamburger = document.querySelector('.hamburger');
-const nav = document.getElementById('main-nav');
-if (hamburger && nav) {
-  hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('open');
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-  });
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 993) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-}
-let slideIndex = 0;
-const slides = document.querySelectorAll('.main-slide');
-const mainDots = document.querySelectorAll('.ind-dot');
-
-function showSlides(n) {
-  if (n >= slides.length) slideIndex = 0;
-  if (n < 0) slideIndex = slides.length - 1;
-  
-  slides.forEach(s => s.classList.remove('active'));
-  mainDots.forEach(d => d.classList.remove('active'));
-  
-  slides[slideIndex].classList.add('active');
-  mainDots[slideIndex].classList.add('active');
-}
-
-function changeSlide(n) { showSlides(slideIndex += n); }
-function setSlide(n) { showSlides(slideIndex = n); }
-
-setInterval(() => changeSlide(1), 5000);
-
-
-let miniIndex = 0;
-const miniSlides = document.querySelectorAll('.mini-slide');
-const miniDots = document.querySelectorAll('.dot');
-
-function showMiniSlides() {
-  miniSlides.forEach(s => s.classList.remove('active'));
-  miniDots.forEach(d => d.classList.remove('active'));
-  
-  miniIndex++;
-  if (miniIndex > miniSlides.length) miniIndex = 1;
-  
-  miniSlides[miniIndex-1].classList.add('active');
-  miniDots[miniIndex-1].classList.add('active');
-  
-  setTimeout(showMiniSlides, 4000);
-}
-showMiniSlides();
-
-document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>

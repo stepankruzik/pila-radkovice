@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kubírovací kalkulačka | Pila Radkovice</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="page-kubirace">
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">
+        <strong>Pila Radkovice</strong>
+        <span>Tradice od roku 1850</span>
+      </a>
+      <button class="hamburger" aria-label="Otevřít menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav" id="main-nav">
+        <a href="index.html">Domů</a>
+        <a href="Sluzby.html">Služby</a>
+        <a href="Cenik.html">Ceník</a>
+        <a href="Historie.html">Příběh</a>
+        <a href="Kontakty.html">Kontakt</a>
+        <a class="active" href="Kubirace.html">Kubírování</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="main-carousel">
+    <div class="carousel-container">
+      <div class="main-slide active" style="background-image: url('img/homepage.jpg');">
+        <div class="carousel-caption">
+          <span class="eyebrow">Nový pracovní režim</span>
+          <h1>Kubírovačka ve stylu aplikace pro rychlé zadávání klád</h1>
+          <p>Hlavní režim kulatiny je teď udělaný jako pracovní obrazovka: velké vstupy, rychlá číselná klávesnice, přidání klády jedním tlačítkem a přehledný seznam už zadaných kusů.</p>
+          <div class="hero-chip-row">
+            <span class="hero-chip">Mobilní styl</span>
+            <span class="hero-chip">Rychlé zadávání</span>
+            <span class="hero-chip">Import a export</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container page-content">
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Kulatina bez zdržování</span>
+        <h2>Kalkulačka jako pracovní terminál</h2>
+        <p class="lead">Klikneš do pole, čísla sypeš přes klávesnici dole a kládu přidáš jedním tlačítkem. Vedle hned vidíš součet kubíků, kusů i poslední zadané položky.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt" data-kubirace>
+      <div class="calc-shell">
+        <div class="calc-tabs" aria-label="Režimy kubírování" role="tablist">
+          <button class="calc-tab active" type="button" data-mode="kulatina" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Kulatina</button>
+          <button class="calc-tab" type="button" data-mode="skladane" role="tab" aria-selected="false" aria-controls="panel-skladane" id="tab-skladane">Trám z klády</button>
+        </div>
+
+        <div class="calc-grid">
+          <section class="calc-panel calc-panel-kulatina">
+            <div class="mode-panel" data-mode-panel="kulatina" role="tabpanel" aria-labelledby="tab-kulatina" id="panel-kulatina">
+              <div class="app-shell">
+                <div class="app-topbar">
+                  <div>
+                    <span class="app-date-label">Dnešní zadání</span>
+                    <strong id="calcDateLabel">--.--.----</strong>
+                  </div>
+                  <div class="app-total-inline">
+                    <strong id="topNetVolume">0,000 m³</strong>
+                    <span id="topTotalPieces">0 ks</span>
+                  </div>
+                </div>
+
+                <div class="app-entry">
+                  <div class="app-entry-head">
+                    <div>
+                      <span class="app-mini-label">Aktivní kláda</span>
+                      <h3>Kulatina po jednotlivých kusech</h3>
+                    </div>
+                    <div class="app-live-volume">
+                      <div id="draftVolume">0,000 m³</div>
+                    </div>
+                  </div>
+
+                  <div class="app-fields-grid">
+                    <div class="app-field-card is-active" data-focus-field="length">
+                      <span class="app-field-label">Délka (m)</span>
+                      <input class="app-field-input" id="draftLength" type="text" inputmode="decimal" placeholder="4,0" autocomplete="off">
+                    </div>
+                    <div class="app-field-card" data-focus-field="diameter">
+                      <span class="app-field-label">Průměr (cm)</span>
+                      <input class="app-field-input" id="draftDiameter" type="text" inputmode="decimal" placeholder="28" autocomplete="off">
+                    </div>
+                    <div class="app-field-card" data-focus-field="count">
+                      <span class="app-field-label">Počet kusů</span>
+                      <input class="app-field-input" id="draftCount" type="text" inputmode="numeric" value="1" autocomplete="off">
+                    </div>
+                    <div class="app-field-card app-field-card-static">
+                      <span class="app-field-label">Dřevina</span>
+                      <div class="app-species-grid" id="draftSpecies">
+                        <button class="species-chip is-active" type="button" data-species="smrk">Smrk</button>
+                        <button class="species-chip" type="button" data-species="borovice">Borovice</button>
+                        <button class="species-chip" type="button" data-species="modrin">Modřín</button>
+                        <button class="species-chip" type="button" data-species="dub">Dub</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="app-pad">
+                  <div class="pad-main">
+                    <button class="pad-key" type="button" data-key="1">1</button>
+                    <button class="pad-key" type="button" data-key="2">2</button>
+                    <button class="pad-key" type="button" data-key="3">3</button>
+                    <button class="pad-key pad-side" type="button" data-action="backspace">⌫</button>
+
+                    <button class="pad-key" type="button" data-key="4">4</button>
+                    <button class="pad-key" type="button" data-key="5">5</button>
+                    <button class="pad-key" type="button" data-key="6">6</button>
+                    <button class="pad-key pad-side" type="button" data-action="clear-field">C</button>
+
+                    <button class="pad-key" type="button" data-key="7">7</button>
+                    <button class="pad-key" type="button" data-key="8">8</button>
+                    <button class="pad-key" type="button" data-key="9">9</button>
+                    <button class="pad-key pad-side pad-side-add" type="button" id="addLogRow">+</button>
+
+                    <button class="pad-meta" type="button" id="clearLogRows">Smazat vše</button>
+                    <button class="pad-key" type="button" data-key="0">0</button>
+                    <button class="pad-key" type="button" data-key=",">,</button>
+                    <button class="pad-meta pad-meta-ghost" type="button" id="cloneLastRow">Poslední znovu</button>
+                  </div>
+                </div>
+
+                <div class="app-list-head">
+                  <div>
+                    <span class="app-mini-label">Zadané položky</span>
+                    <strong id="logListStats">Zatím bez klády</strong>
+                  </div>
+                  <button class="copy-btn" type="button" id="toggleImport">Import / export</button>
+                </div>
+
+                <div class="import-drawer" id="importDrawer" hidden>
+                  <div class="summary-box import-box">
+                    <strong>Import z Excelu nebo CSV</strong>
+                    <p class="muted" style="margin-top: 8px;">Vlož sloupce v pořadí: <strong>průměr</strong>, <strong>délka</strong>, <strong>počet</strong>, volitelně <strong>dřevina</strong>. Oddělovače mohou být tabulátor, středník nebo čárka.</p>
+                    <textarea class="summary-area input import-area" id="excelPaste" placeholder="28&#9;4&#9;1&#9;smrk&#10;32&#9;5&#9;2&#9;dub"></textarea>
+                    <div class="button-row">
+                      <button class="copy-btn" type="button" id="importExcelData">Vložit data</button>
+                      <label class="copy-btn file-label" for="csvImport">Nahrát CSV</label>
+                      <input id="csvImport" type="file" accept=".csv,text/csv" hidden>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="log-card-list" id="logRows"></div>
+
+                <template id="logRowTemplate">
+                  <article class="log-card" data-log-row>
+                    <div class="log-card-top">
+                      <strong class="log-card-index" data-log-row-title>1</strong>
+                      <button class="log-row-remove" type="button" data-remove-log-row aria-label="Odebrat tuto kládu">×</button>
+                    </div>
+                    <div class="log-card-grid">
+                      <div>
+                        <span class="log-card-label">Délka</span>
+                        <strong data-log-length>0 m</strong>
+                      </div>
+                      <div>
+                        <span class="log-card-label">Průměr</span>
+                        <strong data-log-diameter>0 cm</strong>
+                      </div>
+                      <div>
+                        <span class="log-card-label">Počet</span>
+                        <strong data-log-count>0 ks</strong>
+                      </div>
+                      <div>
+                        <span class="log-card-label">Dřevina</span>
+                        <strong data-log-species>Smrk</strong>
+                      </div>
+                    </div>
+                    <div class="log-card-volume" data-log-row-volume>0,000 m³</div>
+                  </article>
+                </template>
+              </div>
+            </div>
+
+            <div class="mode-panel" data-mode-panel="skladane" role="tabpanel" aria-labelledby="tab-skladane" id="panel-skladane" hidden>
+              <div class="section-head">
+                <span class="eyebrow">Trám z klády</span>
+                <h3>Jak silná musí být kláda na čepu</h3>
+              </div>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="stackCutMode">Typ řezu</label>
+                  <select class="input" id="stackCutMode">
+                    <option value="edged" selected>Hraněné</option>
+                    <option value="na-ostro">Na ostro</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="stackLength">Délka trámu (m)</label>
+                  <input class="input" id="stackLength" type="number" min="0.1" step="0.1" value="4">
+                </div>
+                <div class="field">
+                  <label for="stackWidth" id="stackWidthLabel">Šířka trámu (cm)</label>
+                  <input class="input" id="stackWidth" type="number" min="1" step="1" value="12">
+                </div>
+                <div class="field" id="stackHeightField">
+                  <label for="stackHeight" id="stackHeightLabel">Výška trámu (cm)</label>
+                  <input class="input" id="stackHeight" type="number" min="1" step="1" value="10">
+                </div>
+                <div class="field">
+                  <label for="stackCoefficient">Rezerva na pořez (cm)</label>
+                  <input class="input" id="stackCoefficient" type="number" min="0" step="0.5" value="0">
+                </div>
+                <div class="field" id="stackCountXField">
+                  <label for="stackCountX" id="stackCountXLabel">Kusy vedle sebe</label>
+                  <input class="input" id="stackCountX" type="number" min="1" step="1" value="1">
+                </div>
+                <div class="field">
+                  <label for="stackCountY" id="stackCountYLabel">Kusy na výšku</label>
+                  <input class="input" id="stackCountY" type="number" min="1" step="1" value="1">
+                </div>
+              </div>
+              <div class="beam-preview-card">
+                <div class="beam-preview-head">
+                  <strong>Náhled čela klády</strong>
+                  <span id="beamPreviewLabel">1 kus 10 x 12 cm</span>
+                </div>
+                <div class="beam-preview-canvas" id="beamPreviewCanvas" aria-live="polite"></div>
+              </div>
+            </div>
+          </section>
+
+          <aside class="result-panel">
+            <div class="section-head">
+              <span class="eyebrow">Výstup</span>
+              <h3 id="calcModeTitle">Kulatina - součet objemu po jednotlivých řádcích</h3>
+              <p class="muted" id="calcExplanation">Kulatina se počítá ze středového průměru a délky kmene. Výsledkem je přímý součet objemu jednotlivých klád.</p>
+            </div>
+
+            <div class="result-grid">
+              <div class="result-tile">
+                <small id="netVolumeLabel">Čistý objem</small>
+                <div class="result-value" id="netVolume">0,000 m³</div>
+              </div>
+              <div class="result-tile">
+                <small id="weightEstimateLabel">Odhad hmotnosti</small>
+                <div class="result-value" id="weightEstimate">0 kg</div>
+              </div>
+            </div>
+
+            <div class="log-table-wrap result-log-table-wrap" id="resultLogTableWrap">
+              <table class="log-table result-log-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Délka</th>
+                    <th>Průměr</th>
+                    <th>Ks</th>
+                    <th>m³ bez kůry</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="resultLogTableBody">
+                  <tr>
+                    <td colspan="5" class="result-log-empty" id="resultLogEmpty">Zatím není přidaná žádná kláda.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="button-row">
+              <button class="copy-btn" id="exportCsv" type="button">Export do Excelu (CSV)</button>
+              <button class="copy-btn" id="exportPdf" type="button">Export do PDF</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <strong>Pila Radkovice u Budče</strong>
+      <p>Kubírovací kalkulačka a moderní dřevařský web s tradicí od roku 1850.</p>
+      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+    </div>
+  </footer>
+
+  <script src="js/site.js" defer></script>
+  <script src="js/kubirace.js" defer></script>
+</body>
+</html>

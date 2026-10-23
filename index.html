@@ -6,7 +6,7 @@
   <title>Pila Radkovice u Budče | Založeno 1850</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page-home">
 
   <header class="site-header">
     <div class="container header-inner">
@@ -20,148 +20,187 @@
         <span></span>
       </button>
       <nav class="nav" id="main-nav">
-         <a class="active" href="index.html">Domů</a>
+        <a class="active" href="index.html">Domů</a>
         <a href="Sluzby.html">Služby</a>
-        <a  href="Cenik.html">Ceník</a>
+        <a href="Cenik.html">Ceník</a>
         <a href="Historie.html">Příběh</a>
         <a href="Kontakty.html">Kontakt</a>
+        <a href="Kubirace.html">Kubírování</a>
       </nav>
     </div>
   </header>
 
-<section class="main-carousel">
-  <div class="carousel-container">
-    
-    <div class="main-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img2.jpg');">
-      <div class="carousel-caption">
-        <h1>Dřevo s pamětí</h1>
-        <p>„Kde se moderní technologie setkává s poctivým řemeslem předků.“</p>
-      </div>
-    </div>
-    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/img3.jpg');">
-      <div class="carousel-caption">
-        <h1>Tradice od roku 1850</h1>
-        <p>Poctivé zpracování dřeva v srdci Radkovic u Budče.</p>
-      </div>
-    </div>
-
-    <div class="main-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/homepage.jpg');">
-      <div class="carousel-caption">
-        <h1>Kvalitní pořez</h1>
-        <p>Zpracováváme kulatinu až do délky 20 metrů.</p>
-      </div>
-    </div>
-
-    <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#10094;</button>
-    <button class="carousel-arrow next" onclick="changeSlide(1)">&#10095;</button>
-    
-    <div class="carousel-indicators">
-      <span class="ind-dot active" onclick="setSlide(0)"></span>
-      <span class="ind-dot" onclick="setSlide(1)"></span>
-      <span class="ind-dot" onclick="setSlide(2)"></span>
-    </div>
-  </div>
-</section>
-
- <main class="container" style="margin-top: -20px; position: relative; z-index: 10; padding-bottom: 60px;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-      
-      <article class="card">
-        <div class="card-pad">
-          <h2>Naše dědictví</h2>
-          <p>Již od roku 1850, kdy František Pacher položil základní kámen naší pily, zpracováváme surové dříví z lokálních lesů. Prošli jsme érou vodních kol i turbín, abychom vám dnes nabídli špičkový pořez.</p>
-          <br>
-          <a href="Historie.html" class="btn">Číst celý příběh</a>
+  <section class="main-carousel">
+    <div class="carousel-container">
+      <div class="main-slide active" style="background-image: url('img/homepage.jpg');">
+        <div class="carousel-caption">
+          <span class="eyebrow">Pila Radkovice u Budče</span>
+          <h1>Pořez kulatiny a řezivo na zakázku</h1>
+          <p>Pila s tradicí od roku 1850, zaměřená na pořez kulatiny, výrobu stavebního řeziva, výkup dřeva a domluvu zakázek podle konkrétní potřeby zákazníka.</p>
+          <div class="hero-actions">
+            <a href="Sluzby.html" class="btn">Prohlédnout služby</a>
+            <a href="Kubirace.html" class="btn-secondary">Otevřít kubírovačku</a>
+          </div>
         </div>
-      </article>
-
-      <article class="card">
-        <div class="card-pad">
-          <h2>Co nabízíme</h2>
-          <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 10px;">🌲 <strong>Pořez kulatiny:</strong> Délky od 2 do 20 metrů.</li>
-            <li style="margin-bottom: 10px;">🚛 <strong>Doprava:</strong> Vlastní technika pro převoz sortimentu.</li>
-            <li style="margin-bottom: 10px;">⚖️ <strong>Výkup:</strong> Férové ceny dle aktuálních tržních standardů.</li>
-          </ul>
-          <br>
-           <a href="Sluzby.html" class="btn">Více o službách</a>
-        </div>
-      </article>
       </div>
-        <div class="grid">
 
+      <div class="main-slide" style="background-image: url('img/img3.jpg');">
+        <div class="carousel-caption">
+          <span class="eyebrow">Provoz pily</span>
+          <h1>Trámy, fošny, prkna i další běžný sortiment</h1>
+          <p>Řežeme stavební řezivo podle zadání, připravujeme materiál pro krovy, konstrukce i běžné hospodářské využití.</p>
+          <div class="hero-actions">
+            <a href="Cenik.html" class="btn">Ceník služeb</a>
+            <a href="Kontakty.html" class="btn-secondary">Poptat zakázku</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-slide" style="background-image: url('img/img2.jpg');">
+        <div class="carousel-caption">
+          <span class="eyebrow">Kapacita a služby</span>
+          <h1>Zpracování kulatiny až do délky 20 metrů</h1>
+          <p>Vedle samotného pořezu nabízíme i výkup kulatiny, dopravu materiálu a orientační kubírování před zakázkou.</p>
+          <div class="hero-actions">
+            <a href="Kubirace.html" class="btn">Vyzkoušet hned</a>
+            <a href="Historie.html" class="btn-secondary">Příběh pily</a>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-arrow prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="carousel-arrow next" onclick="changeSlide(1)">&#10095;</button>
+
+      <div class="carousel-indicators">
+        <span class="ind-dot active" onclick="setSlide(0)"></span>
+        <span class="ind-dot" onclick="setSlide(1)"></span>
+        <span class="ind-dot" onclick="setSlide(2)"></span>
+      </div>
     </div>
+  </section>
+
+  <main class="container page-content">
+    <section class="section">
+      <div class="kpi-strip">
+        <article class="stat-card">
+          <span class="stat-value">175+</span>
+          <span class="stat-label">let historie</span>
+          <p>Kořeny pily sahají do roku 1850 a pořád stojíme na stejných hodnotách: poctivost, kvalita a osobní přístup.</p>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">20 m</span>
+          <span class="stat-label">maximální délka</span>
+          <p>Zvládáme pořez kulatiny ve velkých délkách a umíme nabídnout řešení na míru konkrétní zakázce.</p>
+        </article>
+        <article class="stat-card">
+          <span class="stat-value">Zakázky</span>
+          <span class="stat-label">na míru</span>
+          <p>Pořez připravujeme podle konkrétního zadání. Ať jde o stavební řezivo, trámy nebo prkna, hledáme praktické řešení podle použití materiálu.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt home-why-section">
+      <div class="section-head">
+        <span class="eyebrow">Pila Radkovice</span>
+        <h2>Pořez, výkup a služby kolem dřeva</h2>
+        <p class="lead">Zajišťujeme zakázkový pořez kulatiny, výrobu řeziva, výkup dřeva i domluvu dopravy. Důraz klademe na jasnou domluvu, rozumné řešení zakázky a poctivou práci s materiálem.</p>
+      </div>
+
+      <div class="home-story-layout">
+        <article class="home-story-main">
+          <div class="home-story-main-inner">
+            <span class="eyebrow">Tradice a provoz</span>
+            <h3>Pila s historií, která dál slouží v běžném provozu</h3>
+            <p>Pila v Radkovicích stojí na dlouhé tradici, ale hlavně na skutečné práci se dřevem. Nejde o prezentaci bez obsahu, ale o provoz, kde se řeže, nakládá, vykupuje a domlouvá zakázka podle reality materiálu.</p>
+            <p>Pro zákazníka to znamená jednoduchou domluvu, konkrétní informace a možnost řešit délku, průměr, výstup i dopravu přímo s pilou.</p>
+            <div class="home-story-points">
+              <span>tradice od roku 1850</span>
+              <span>pořez kulatiny až do 20 m</span>
+              <span>provoz po rekonstrukci znovu v chodu</span>
+            </div>
+            <div class="button-row">
+              <a href="Historie.html" class="btn">Číst příběh pily</a>
+            </div>
+          </div>
+        </article>
+
+        <div class="home-story-side">
+          <article class="home-story-card home-story-card-dark">
+            <span class="eyebrow">Co zajišťujeme</span>
+            <h3>Pořez podle požadovaného výstupu</h3>
+            <ul class="service-stack">
+              <li>trámy, fošny, prkna, latě a stavební řezivo</li>
+              <li>zakázkové řešení podle délky, průměru a použití</li>
+              <li>pořez vlastního materiálu po předchozí domluvě</li>
+            </ul>
+          </article>
+
+          <article class="home-story-card">
+            <span class="eyebrow">Další služby</span>
+            <h3>Výkup kulatiny, doprava a kubírování</h3>
+            <p class="muted">Vedle pořezu nabízíme také výkup kulatiny, dopravu materiálu a orientační výpočty, které pomůžou při přípravě zakázky.</p>
+            <div class="button-row">
+              <a href="Sluzby.html" class="btn">Zjistit víc</a>
+              <a href="Kubirace.html" class="btn-secondary">Spustit kalkulačku</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="eyebrow">Hlavní přednosti</span>
+        <h2>Na co se u nás zákazníci nejvíc ptají</h2>
+      </div>
+
+      <div class="feature-grid">
+        <article class="card">
+          <div class="card-pad">
+            <span class="eyebrow">Sortiment</span>
+            <h3>Trámy, fošny, prkna, latě</h3>
+            <p class="muted">Dodáváme běžné stavební řezivo i zakázkové rozměry podle plánovaného použití a požadovaného výstupu.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-pad">
+            <span class="eyebrow">Výkup a doprava</span>
+            <h3>Služby navázané na samotný pořez</h3>
+            <p class="muted">Kromě výroby řeziva řešíme i výkup kulatiny a podle možností provozu také dopravu materiálu.</p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="card-pad">
+            <span class="eyebrow">Kubírování</span>
+            <h3>Rychlý orientační přepočet materiálu</h3>
+            <p class="muted">Kdo potřebuje rychle spočítat kubaturu nebo odhadnout výtěžnost, může využít naši kubírovačku před samotnou poptávkou.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="cta-band">
+        <span class="eyebrow">Poptávka a domluva</span>
+        <h2>Potřebuješ pořez, výkup nebo orientační výpočet?</h2>
+        <p>Ozvi se nám a připravíme další postup podle délky, průměru, množství i požadovaného výstupu. Když je potřeba, pomůžeme i s orientační kubaturou předem.</p>
+        <div class="button-row">
+          <a href="Kubirace.html" class="btn">Spustit kubírování</a>
+          <a href="Kontakty.html" class="btn-secondary">Kontaktovat pilu</a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+  <footer class="site-footer">
     <div class="container">
-      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
-      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+      <strong>Pila Radkovice u Budče</strong>
+      <p>Tradiční pila s poctivým pořezem, dlouhou historií a službami pro zákazníky, kteří potřebují dřevo na míru.</p>
+      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
     </div>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();
-// Hamburger menu
-const hamburger = document.querySelector('.hamburger');
-const nav = document.getElementById('main-nav');
-if (hamburger && nav) {
-  hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('open');
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-  });
-  // Zavřít menu po kliknutí na odkaz (na mobilech)
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 993) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-}
-
-let slideIndex = 0;
-const slides = document.querySelectorAll('.main-slide');
-const mainDots = document.querySelectorAll('.ind-dot');
-
-function showSlides(n) {
-  if (n >= slides.length) slideIndex = 0;
-  if (n < 0) slideIndex = slides.length - 1;
-  
-  slides.forEach(s => s.classList.remove('active'));
-  mainDots.forEach(d => d.classList.remove('active'));
-  
-  slides[slideIndex].classList.add('active');
-  mainDots[slideIndex].classList.add('active');
-}
-
-function changeSlide(n) { showSlides(slideIndex += n); }
-function setSlide(n) { showSlides(slideIndex = n); }
-
-setInterval(() => changeSlide(1), 5000);
-
-let miniIndex = 0;
-const miniSlides = document.querySelectorAll('.mini-slide');
-const miniDots = document.querySelectorAll('.dot');
-
-function showMiniSlides() {
-  miniSlides.forEach(s => s.classList.remove('active'));
-  miniDots.forEach(d => d.classList.remove('active'));
-  
-  miniIndex++;
-  if (miniIndex > miniSlides.length) miniIndex = 1;
-  
-  miniSlides[miniIndex-1].classList.add('active');
-  miniDots[miniIndex-1].classList.add('active');
-  
-  setTimeout(showMiniSlides, 4000);
-}
-showMiniSlides();
-
-document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>

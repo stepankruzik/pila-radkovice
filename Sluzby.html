@@ -6,7 +6,7 @@
   <title>Služby a technologie | Pila Radkovice</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="page-services">
 
   <header class="site-header">
     <div class="container header-inner">
@@ -25,6 +25,7 @@
         <a href="Cenik.html">Ceník</a>
         <a href="Historie.html">Příběh</a>
         <a href="Kontakty.html">Kontakt</a>
+        <a href="Kubirace.html">Kubírování</a>
       </nav>
     </div>
   </header>
@@ -63,118 +64,84 @@
   </div>
 </section>
 
-  <main class="container" style="margin-top: -50px; position: relative; z-index: 10; padding-bottom: 60px;">
+  <main class="container page-content">
     
     <div class="grid">
-      <section>
-        <article class="card" style="margin-bottom: 30px;">
-          <div class="card-pad">
-            <h2>Pořez kulatiny</h2>
-            <p>Specializujeme se na zakázkový pořez jehličnaté i listnaté kulatiny na modernizovaném rámovém katru.</p>
-            <ul class="heritage-list">
-              <li>Stavební řezivo na míru (krovy, trámy)</li>
-              <li>Prkna, fošny a latě v různých tloušťkách</li>
-              <li>Možnost pořezu i vlastního materiálu</li>
-            </ul>
-          </div>
-        </article>
+      <article class="card">
+        <div class="card-pad">
+          <h2>Pořez kulatiny</h2>
+          <p>Specializujeme se na zakázkový pořez jehličnaté i listnaté kulatiny. Připravujeme řezivo pro stavební použití, hospodářské stavby i běžné využití kolem domu a dvora.</p>
+          <ul class="heritage-list">
+            <li>stavební řezivo na míru pro krovy, trámy a další konstrukce</li>
+            <li>prkna, fošny, latě a další běžný pilařský sortiment</li>
+            <li>možnost pořezu vlastního materiálu po předchozí domluvě</li>
+            <li>individuální řešení podle délky, průměru a typu požadovaného řezu</li>
+          </ul>
+        </div>
+      </article>
 
-        <article class="card">
-          <div class="card-pad">
-            <h3>Technické možnosti</h3>
-            <div class="table-wrap">
-              <table class="modern-table">
-                <thead>
-                  <tr>
-                    <th>Parametr</th>
-                    <th>Specifikace</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><td><strong>Max. délka</strong></td><td><span class="highlight">20 metrů</span></td></tr>
-                  <tr><td><strong>Průměr</strong></td><td>80 – 500 mm</td></tr>
-                  <tr><td><strong>Přesnost</strong></td><td>Standard ČSN</td></tr>
-                </tbody>
-              </table>
-            </div>
+      <article class="card">
+        <div class="card-pad">
+          <h3>Technické možnosti</h3>
+          <div class="table-wrap">
+            <table class="modern-table">
+              <thead>
+                <tr>
+                  <th>Parametr</th>
+                  <th>Specifikace</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Max. délka</strong></td><td><span class="highlight">20 metrů</span></td></tr>
+                <tr><td><strong>Průměr</strong></td><td>80 – 500 mm</td></tr>
+                <tr><td><strong>Přesnost</strong></td><td>Standard ČSN</td></tr>
+              </tbody>
+            </table>
           </div>
-        </article>
+        </div>
+      </article>
+    </div>
+
+    <div class="grid" style="margin-top: 30px;">
+      <section class="card">
+        <div class="card-pad">
+          <h2>Další služby</h2>
+          <ul class="service-stack">
+            <li>výkup kulatiny podle kvality, délky a průměru</li>
+            <li>doprava materiálu a domluva odvozu podle možností provozu</li>
+            <li>orientační kubírování kulatiny a řeziva</li>
+            <li>konzultace vhodného rozměru a typu řezu před zakázkou</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-pad">
+          <h2>Jak zakázka probíhá</h2>
+          <p class="muted">Nejčastěji řešíme zakázku po telefonu nebo osobně. Důležité jsou hlavně délky, průměry, požadovaný výstup a termín.</p>
+          <ul class="list-check">
+            <li>domluva rozměrů a typu materiálu</li>
+            <li>upřesnění termínu, množství a dopravy</li>
+            <li>pořez nebo výkup podle stavu a kvality dřeva</li>
+          </ul>
+          <div class="button-row">
+            <a href="Kontakty.html" class="btn">Domluvit zakázku</a>
+            <a href="Cenik.html" class="btn-secondary">Prohlédnout ceník</a>
+          </div>
+        </div>
       </section>
     </div>
 
   </main>
 
-  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+  <footer class="site-footer">
     <div class="container">
-      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
-      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+      <strong>Pila Radkovice u Budče</strong>
+      <p>Zakázkový pořez, technické možnosti a individuální přístup k materiálu i zákazníkovi.</p>
+      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
     </div>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();
-      // Hamburger menu
-      const hamburger = document.querySelector('.hamburger');
-      const nav = document.getElementById('main-nav');
-      if (hamburger && nav) {
-        hamburger.addEventListener('click', function() {
-          hamburger.classList.toggle('active');
-          nav.classList.toggle('open');
-          const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-          hamburger.setAttribute('aria-expanded', !expanded);
-        });
-        nav.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            if (window.innerWidth < 993) {
-              hamburger.classList.remove('active');
-              nav.classList.remove('open');
-              hamburger.setAttribute('aria-expanded', 'false');
-            }
-          });
-        });
-      }
-       // --- LOGIKA HLAVNÍHO KARUSELU (Šipky + Tečky) ---
-let slideIndex = 0;
-const slides = document.querySelectorAll('.main-slide');
-const mainDots = document.querySelectorAll('.ind-dot');
-
-function showSlides(n) {
-  if (n >= slides.length) slideIndex = 0;
-  if (n < 0) slideIndex = slides.length - 1;
-  
-  slides.forEach(s => s.classList.remove('active'));
-  mainDots.forEach(d => d.classList.remove('active'));
-  
-  slides[slideIndex].classList.add('active');
-  mainDots[slideIndex].classList.add('active');
-}
-
-function changeSlide(n) { showSlides(slideIndex += n); }
-function setSlide(n) { showSlides(slideIndex = n); }
-
-// Automatické přepínání hlavního karuselu (5 sekund)
-setInterval(() => changeSlide(1), 5000);
-
-
-// --- LOGIKA MINI-KARUSELU V KARTĚ ---
-let miniIndex = 0;
-const miniSlides = document.querySelectorAll('.mini-slide');
-const miniDots = document.querySelectorAll('.dot');
-
-function showMiniSlides() {
-  miniSlides.forEach(s => s.classList.remove('active'));
-  miniDots.forEach(d => d.classList.remove('active'));
-  
-  miniIndex++;
-  if (miniIndex > miniSlides.length) miniIndex = 1;
-  
-  miniSlides[miniIndex-1].classList.add('active');
-  miniDots[miniIndex-1].classList.add('active');
-  
-  setTimeout(showMiniSlides, 4000);
-}
-showMiniSlides();
-
-document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>

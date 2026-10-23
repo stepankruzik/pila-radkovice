@@ -25,6 +25,7 @@
         <a class="active" href="Cenik.html">Ceník</a>
         <a href="Historie.html">Příběh</a>
         <a href="Kontakty.html">Kontakt</a>
+        <a href="Kubirace.html">Kubírování</a>
       </nav>
     </div>
   </header>
@@ -63,7 +64,7 @@
   </div>
 </section>
 
-  <main class="container" style="margin-top: -50px; position: relative; z-index: 10; padding-bottom: 80px;">
+  <main class="container page-content">
     
     <div class="grid">
       <section class="card">
@@ -136,82 +137,49 @@
             <h3>Důležité informace</h3>
             <p style="margin-top: 10px;">Finální cena výkupu i pořezu je vždy stanovena po osobní prohlídce materiálu. Na cenu má vliv zejména: <strong>rovnost kmene, sukovitost, čerstvost a lokalita odvozu.</strong></p>
             <div style="margin-top: 25px;">
-                <a href="kontakty.html" class="btn">Poptat kalkulaci na míru</a>
+                <a href="Kontakty.html" class="btn">Poptat kalkulaci na míru</a>
             </div>
         </div>
     </div>
 
+    <div class="card" style="margin-top: 30px;">
+      <div class="card-pad">
+        <h3>Piliny a krajiny</h3>
+
+        <div class="table-wrap">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>Materiál</th>
+                <th style="text-align: right;">Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Krajiny / odkorky</strong></td>
+                <td style="text-align: right;"><span class="highlight">724 Kč s DPH / PRM</span></td>
+              </tr>
+              <tr>
+                <td><strong>Piliny</strong></td>
+                <td style="text-align: right;"><span class="highlight">363 Kč s DPH / m³</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
-  <footer style="background: var(--wood-dark); color: white; padding: 60px 0; text-align: center; margin-top: 80px;">
+  <footer class="site-footer">
     <div class="container">
-      <p style="font-family: 'Cinzel', serif; color: var(--gold); font-size: 1.2rem;">Pila Radkovice u Budče</p>
-      <p style="opacity: 0.6; margin-top: 20px;">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
+      <strong>Pila Radkovice u Budče</strong>
+      <p>Přehledné ceny pořezu i výkupu a možnost rychlé orientace před objednávkou.</p>
+      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
     </div>
   </footer>
 
-  <script>document.getElementById("y").textContent = new Date().getFullYear();
-// Hamburger menu
-const hamburger = document.querySelector('.hamburger');
-const nav = document.getElementById('main-nav');
-if (hamburger && nav) {
-  hamburger.addEventListener('click', function() {
-    hamburger.classList.toggle('active');
-    nav.classList.toggle('open');
-    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-    hamburger.setAttribute('aria-expanded', !expanded);
-  });
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 993) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-}
-
-let slideIndex = 0;
-const slides = document.querySelectorAll('.main-slide');
-const mainDots = document.querySelectorAll('.ind-dot');
-
-function showSlides(n) {
-  if (n >= slides.length) slideIndex = 0;
-  if (n < 0) slideIndex = slides.length - 1;
-  
-  slides.forEach(s => s.classList.remove('active'));
-  mainDots.forEach(d => d.classList.remove('active'));
-  
-  slides[slideIndex].classList.add('active');
-  mainDots[slideIndex].classList.add('active');
-}
-
-function changeSlide(n) { showSlides(slideIndex += n); }
-function setSlide(n) { showSlides(slideIndex = n); }
-
-setInterval(() => changeSlide(1), 5000);
-
-
-let miniIndex = 0;
-const miniSlides = document.querySelectorAll('.mini-slide');
-const miniDots = document.querySelectorAll('.dot');
-
-function showMiniSlides() {
-  miniSlides.forEach(s => s.classList.remove('active'));
-  miniDots.forEach(d => d.classList.remove('active'));
-  
-  miniIndex++;
-  if (miniIndex > miniSlides.length) miniIndex = 1;
-  
-  miniSlides[miniIndex-1].classList.add('active');
-  miniDots[miniIndex-1].classList.add('active');
-  
-  setTimeout(showMiniSlides, 4000);
-}
-showMiniSlides();
-
-document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>
