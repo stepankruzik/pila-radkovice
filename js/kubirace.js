@@ -178,7 +178,12 @@
   const setActiveField = (fieldName) => {
     state.activeField = fieldName;
     syncFieldState();
+    root.dataset.keypad = 'visible';
     activeInputMap[fieldName]?.focus();
+  };
+
+  const hideKeypad = () => {
+    root.dataset.keypad = 'hidden';
   };
 
   const syncSpeciesState = () => {
@@ -394,6 +399,7 @@
     renderLogRows();
     renderResultLogTable();
     update();
+    hideKeypad();
     resetDraft({
       length: draft.length,
       count: draft.count,
@@ -570,6 +576,9 @@
 
   const setMode = (mode) => {
     root.dataset.viewMode = mode;
+    if (mode === 'zadavani') {
+      hideKeypad();
+    }
     tabs.forEach((tab) => {
       const isActive = tab.dataset.mode === mode;
       tab.classList.toggle('active', isActive);
@@ -793,7 +802,6 @@
     bottomNewEntryButton.addEventListener('click', () => {
       setMode('zadavani');
       resetDraft({ count: '1', species: state.selectedSpecies, activeField: 'length' });
-      activeInputMap.length?.focus();
     });
   }
 
@@ -824,4 +832,5 @@
   renderLogRows();
   renderResultLogTable();
   setMode('kulatina');
+  hideKeypad();
 })();

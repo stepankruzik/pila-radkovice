@@ -898,6 +898,8 @@
   .page-kubirace .app-shell {
     height: 100%;
     gap: 6px;
+    position: relative;
+    overflow: hidden;
   }
 
   .page-kubirace .app-topbar {
@@ -966,6 +968,124 @@
     padding: 5px;
   }
 
+  .page-kubirace [data-keypad="hidden"] .app-pad {
+    display: none;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-list-head,
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .log-card-list {
+    display: none !important;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-entry {
+    flex: 0 0 auto;
+    padding: 5px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-topbar {
+    flex-basis: 40px;
+    min-height: 40px;
+    padding: 5px 8px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-entry-head {
+    margin-bottom: 3px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-entry-head h3 {
+    max-width: 150px;
+    font-size: 0.68rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-live-volume {
+    min-width: 72px;
+    padding: 4px 6px;
+    font-size: 0.78rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-fields-grid {
+    gap: 3px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-field-card {
+    min-height: 45px;
+    padding: 4px 6px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-field-input {
+    font-size: 0.96rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-field-card-static {
+    min-height: 62px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .species-chip {
+    padding: 3px 2px;
+    font-size: 0.57rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .bark-toggle {
+    min-height: 45px;
+    padding: 5px 6px;
+    gap: 6px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .bark-toggle-mark {
+    width: 18px;
+    height: 18px;
+    flex-basis: 18px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .bark-toggle strong {
+    font-size: 0.64rem;
+    white-space: nowrap;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .bark-toggle small {
+    font-size: 0.56rem;
+    white-space: nowrap;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-pad {
+    padding: 4px;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 52px;
+    z-index: 5;
+    margin: 0;
+    box-shadow: 0 -8px 18px rgba(20, 32, 18, 0.16);
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .pad-main {
+    gap: 3px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .pad-key,
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .pad-meta,
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .pad-side-add {
+    min-height: 32px;
+    font-size: 0.86rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .pad-meta {
+    font-size: 0.54rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"][data-keypad="visible"] .app-bottom-nav {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    z-index: 6;
+    flex-basis: 48px;
+    min-height: 48px;
+    margin-top: 2px;
+    padding-top: 3px;
+    padding-bottom: calc(3px + env(safe-area-inset-bottom));
+  }
+
   .page-kubirace .pad-main {
     gap: 4px;
   }
@@ -1007,10 +1127,13 @@
     padding: 5px 16px calc(5px + env(safe-area-inset-bottom));
   }
 
-  .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-entry,
-  .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-pad,
   .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-shell {
     display: flex;
+  }
+
+  .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-entry,
+  .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-pad {
+    display: none;
   }
 
   .page-kubirace [data-kubirace][data-view-mode="kulatina"] .app-list-head {
