@@ -29,14 +29,19 @@
   const draftLengthInput = document.getElementById('draftLength');
   const draftDiameterInput = document.getElementById('draftDiameter');
   const draftCountInput = document.getElementById('draftCount');
+  const withoutBarkInput = document.getElementById('withoutBark');
   const draftVolumeLabel = document.getElementById('draftVolume');
   const topNetVolumeLabel = document.getElementById('topNetVolume');
   const topTotalPiecesLabel = document.getElementById('topTotalPieces');
   const logListStats = document.getElementById('logListStats');
+  const logListVolumeLabel = document.getElementById('logListVolumeLabel');
   const calcDateLabel = document.getElementById('calcDateLabel');
   const speciesButtons = Array.from(root.querySelectorAll('[data-species]'));
   const fieldCards = Array.from(root.querySelectorAll('[data-focus-field]'));
   const keypadButtons = Array.from(root.querySelectorAll('.pad-key'));
+  const bottomNewEntryButton = document.getElementById('bottomNewEntry');
+  const bottomShowListButton = document.getElementById('bottomShowList');
+  const bottomExportButton = document.getElementById('bottomExport');
 
   const labels = {
     netLabel: document.getElementById('netVolumeLabel'),
@@ -158,6 +163,9 @@
   const getDraftNet = () => {
     const draft = getDraftValues();
     if (draft.length <= 0 || draft.diameter <= 0 || draft.count <= 0) return 0;
+    if (withoutBarkInput?.checked) {
+      return calculateGrossVolume(draft.diameter, draft.length, draft.count);
+    }
     return calculateNetVolume(draft.diameter, draft.length, draft.count, draft.species);
   };
 
@@ -212,7 +220,9 @@
       if (diameter) diameter.textContent = `${String(item.diameter).replace('.', ',')} cm`;
       if (count) count.textContent = `${item.count} ks`;
       if (species) species.textContent = speciesLabel(item.species);
-      if (volume) volume.textContent = formatVolume(item.gross);
+      if (volume) {
+        volume.textContent = formatVolume(withoutBarkInput?.checked ? item.gross : item.net);
+      }
 
       logRowsContainer.appendChild(row);
     });
@@ -404,8 +414,9 @@
     const items = state.items;
     const gross = items.reduce((sum, item) => sum + item.gross, 0);
     const net = items.reduce((sum, item) => sum + (item.net || 0), 0);
-    const usable = net;
-    const weight = items.reduce((sum, item) => sum + ((item.net || 0) * densityFor(item.species)), 0);
+    const withoutBarkDeduction = withoutBarkInput?.checked;
+    const usable = withoutBarkDeduction ? gross : net;
+    const weight = items.reduce((sum, item) => sum + ((withoutBarkDeduction ? item.gross : item.net || 0) * densityFor(item.species)), 0);
     const totalPieces = items.reduce((sum, item) => sum + item.count, 0);
     const itemLines = items.map((item, index) => (
       `${index + 1}. ${item.count} ks | ${item.length} m | prumer ${item.diameter} cm | ${speciesLabel(item.species)} | ${formatVolume(item.gross)}`
@@ -420,7 +431,7 @@
         ...itemLines,
         '',
         `Hruby objem: ${formatVolume(gross)}`,
-        `Cisty objem: ${formatVolume(net)}`,
+        `${withoutBarkDeduction ? 'Objem bez odectu kury' : 'Cisty objem'}: ${formatVolume(usable)}`,
         `Vysledny objem: ${formatVolume(usable)}`,
         `Orientacni hmotnost: ${formatWeight(weight)}`
       ]
@@ -440,18 +451,22 @@
       usable,
       weight,
       grossLabel: 'Hruby objem',
-      netLabel: 'Cisty objem',
+      netLabel: withoutBarkDeduction ? 'Objem bez odectu kury' : 'Cisty objem',
       yieldLabel: 'Vyuzitelny objem',
       weightLabel: 'Odhad hmotnosti',
       grossDisplay: formatVolume(gross),
-      netDisplay: formatVolume(net),
+      netDisplay: formatVolume(usable),
       yieldDisplay: formatVolume(usable),
       weightDisplay: formatWeight(weight),
       totalPieces,
       title: 'Kulatina - rychle zadavani po jednotlivych kladach',
       text: items.length
-        ? `Secteno ${items.length} radku a ${totalPieces} kusu. Cisty objem je po odectu kury podle dreviny a stredove tloustky.`
-        : 'Zvol aktivni pole, zadej delku, prumer a pocet kusu a pak kladu pridej tlacitkem plus.',
+        ? withoutBarkDeduction
+          ? `Secteno ${items.length} radku a ${totalPieces} kusu bez odectu kury.`
+          : `Secteno ${items.length} radku a ${totalPieces} kusu. Cisty objem je po odectu kury podle dreviny a stredove tloustky.`
+        : withoutBarkDeduction
+          ? 'Objem se pocita bez odectu kury. Zvol aktivni pole a zadej udaje o klade.'
+          : 'Zvol aktivni pole, zadej delku, prumer a pocet kusu a pak kladu pridej tlacitkem plus.',
       summary: summaryLines.join('\n'),
       items
     };
@@ -554,6 +569,7 @@
   };
 
   const setMode = (mode) => {
+    root.dataset.viewMode = mode;
     tabs.forEach((tab) => {
       const isActive = tab.dataset.mode === mode;
       tab.classList.toggle('active', isActive);
@@ -565,6 +581,15 @@
       panel.hidden = panel.dataset.modePanel !== mode;
     });
 
+    if (mode === 'zadavani') {
+      const kulatinaPanel = root.querySelector('[data-mode-panel="kulatina"]');
+      if (kulatinaPanel) kulatinaPanel.hidden = false;
+    }
+
+    if (logListVolumeLabel) {
+      logListVolumeLabel.textContent = withoutBarkInput?.checked ? 'Objem bez kůry' : 'Zadané položky';
+    }
+    renderLogRows();
     update();
   };
 
@@ -665,6 +690,9 @@
 
   root.addEventListener('change', (event) => {
     if (event.target.matches('select, input')) {
+      if (event.target === withoutBarkInput) {
+        renderLogRows();
+      }
       update();
     }
   });
@@ -759,6 +787,27 @@
 
   if (exportPdfButton) {
     exportPdfButton.addEventListener('click', () => window.print());
+  }
+
+  if (bottomNewEntryButton) {
+    bottomNewEntryButton.addEventListener('click', () => {
+      setMode('zadavani');
+      resetDraft({ count: '1', species: state.selectedSpecies, activeField: 'length' });
+      activeInputMap.length?.focus();
+    });
+  }
+
+  if (bottomShowListButton) {
+    bottomShowListButton.addEventListener('click', () => {
+      setMode('kulatina');
+      logRowsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  if (bottomExportButton) {
+    bottomExportButton.addEventListener('click', () => {
+      if (getMode() === 'kulatina') triggerCsvDownload();
+    });
   }
 
   if (calcDateLabel) {

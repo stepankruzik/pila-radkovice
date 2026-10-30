@@ -73,8 +73,9 @@
           </span>
         </div>
         <div class="calc-tabs" aria-label="Režimy kubírování" role="tablist">
+          <button class="calc-tab" type="button" data-mode="zadavani" role="tab" aria-selected="false">Zadávání</button>
           <button class="calc-tab active" type="button" data-mode="kulatina" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Kulatina</button>
-          <button class="calc-tab" type="button" data-mode="skladane" role="tab" aria-selected="false" aria-controls="panel-skladane" id="tab-skladane">Trám z klády</button>
+          <button class="calc-tab" type="button" data-mode="skladane" role="tab" aria-selected="false" aria-controls="panel-skladane" id="tab-skladane">Trám</button>
         </div>
 
         <div class="calc-grid">
@@ -98,6 +99,7 @@
                       <span class="app-mini-label">Aktivní kláda</span>
                       <h3>Kulatina po jednotlivých kusech</h3>
                     </div>
+
                     <div class="app-live-volume">
                       <div id="draftVolume">0,000 m³</div>
                     </div>
@@ -125,6 +127,14 @@
                         <button class="species-chip" type="button" data-species="dub">Dub</button>
                       </div>
                     </div>
+                    <label class="bark-toggle" for="withoutBark">
+                      <input id="withoutBark" type="checkbox">
+                      <span class="bark-toggle-mark" aria-hidden="true"></span>
+                      <span>
+                        <strong>Zadávám rozměry bez kůry</strong>
+                        <small>Kůra se v objemu nebude odečítat</small>
+                      </span>
+                    </label>
                   </div>
                 </div>
 
@@ -154,7 +164,7 @@
 
                 <div class="app-list-head">
                   <div>
-                    <span class="app-mini-label">Zadané položky</span>
+                    <span class="app-mini-label" id="logListVolumeLabel">Zadané položky</span>
                     <strong id="logListStats">Zatím bez klády</strong>
                   </div>
                   <button class="copy-btn" type="button" id="toggleImport">Import / export</button>
@@ -174,6 +184,21 @@
                 </div>
 
                 <div class="log-card-list" id="logRows"></div>
+
+                <div class="app-bottom-nav" aria-label="Akce kalkulačky">
+                  <button type="button" class="app-bottom-action" id="bottomNewEntry">
+                    <span class="bottom-action-icon">＋</span>
+                    <span>Nový</span>
+                  </button>
+                  <button type="button" class="app-bottom-action" id="bottomShowList">
+                    <span class="bottom-action-icon">☷</span>
+                    <span>Seznamy</span>
+                  </button>
+                  <button type="button" class="app-bottom-action app-bottom-action-primary" id="bottomExport">
+                    <span class="bottom-action-icon">▶</span>
+                    <span>Odeslat</span>
+                  </button>
+                </div>
 
                 <template id="logRowTemplate">
                   <article class="log-card" data-log-row>
