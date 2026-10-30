@@ -2,9 +2,13 @@
 <html lang="cs">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1c2416">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Kubírovací kalkulačka | Pila Radkovice</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kubirace.css">
 </head>
 <body class="page-kubirace">
 
@@ -57,7 +61,17 @@
     </section>
 
     <section class="section section-alt" data-kubirace>
+      <div class="phone-stage">
+        <div class="phone-device">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <div class="phone-screen">
       <div class="calc-shell">
+        <div class="app-status-bar" aria-hidden="true">
+          <span>Kubírovačka</span>
+          <span class="app-status-dots">
+            <i></i><i></i><i></i>
+          </span>
+        </div>
         <div class="calc-tabs" aria-label="Režimy kubírování" role="tablist">
           <button class="calc-tab active" type="button" data-mode="kulatina" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Kulatina</button>
           <button class="calc-tab" type="button" data-mode="skladane" role="tab" aria-selected="false" aria-controls="panel-skladane" id="tab-skladane">Trám z klády</button>
@@ -92,15 +106,15 @@
                   <div class="app-fields-grid">
                     <div class="app-field-card is-active" data-focus-field="length">
                       <span class="app-field-label">Délka (m)</span>
-                      <input class="app-field-input" id="draftLength" type="text" inputmode="decimal" placeholder="4,0" autocomplete="off">
+                      <input class="app-field-input" id="draftLength" type="text" inputmode="decimal" enterkeyhint="next" aria-label="Délka klády v metrech" placeholder="4,0" autocomplete="off">
                     </div>
                     <div class="app-field-card" data-focus-field="diameter">
                       <span class="app-field-label">Průměr (cm)</span>
-                      <input class="app-field-input" id="draftDiameter" type="text" inputmode="decimal" placeholder="28" autocomplete="off">
+                      <input class="app-field-input" id="draftDiameter" type="text" inputmode="decimal" enterkeyhint="next" aria-label="Průměr klády v centimetrech" placeholder="28" autocomplete="off">
                     </div>
                     <div class="app-field-card" data-focus-field="count">
                       <span class="app-field-label">Počet kusů</span>
-                      <input class="app-field-input" id="draftCount" type="text" inputmode="numeric" value="1" autocomplete="off">
+                      <input class="app-field-input" id="draftCount" type="text" inputmode="numeric" enterkeyhint="done" aria-label="Počet kusů" value="1" autocomplete="off">
                     </div>
                     <div class="app-field-card app-field-card-static">
                       <span class="app-field-label">Dřevina</span>
@@ -282,6 +296,10 @@
               <button class="copy-btn" id="exportPdf" type="button">Export do PDF</button>
             </div>
           </aside>
+        </div>
+      </div>
+          </div>
+          <div class="phone-home-indicator" aria-hidden="true"></div>
         </div>
       </div>
     </section>
