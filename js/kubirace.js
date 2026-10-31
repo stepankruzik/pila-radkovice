@@ -186,6 +186,10 @@
     root.dataset.keypad = 'hidden';
   };
 
+  const showKeypad = () => {
+    root.dataset.keypad = 'visible';
+  };
+
   const syncSpeciesState = () => {
     speciesButtons.forEach((button) => {
       button.classList.toggle('is-active', button.dataset.species === state.selectedSpecies);
@@ -578,10 +582,10 @@
   const setMode = (mode) => {
     root.dataset.viewMode = mode;
     if (mode === 'zadavani') {
-      hideKeypad();
+      showKeypad();
     }
     tabs.forEach((tab) => {
-      const isActive = tab.dataset.mode === mode;
+      const isActive = tab.dataset.mode === mode && !tab.dataset.secondary;
       tab.classList.toggle('active', isActive);
       tab.setAttribute('aria-selected', String(isActive));
       tab.setAttribute('tabindex', isActive ? '0' : '-1');
@@ -808,7 +812,7 @@
 
   if (bottomShowListButton) {
     bottomShowListButton.addEventListener('click', () => {
-      setMode('kulatina');
+      setMode('zadavani');
       logRowsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
@@ -832,6 +836,5 @@
   });
   renderLogRows();
   renderResultLogTable();
-  setMode('kulatina');
-  hideKeypad();
+  setMode('zadavani');
 })();

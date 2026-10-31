@@ -67,15 +67,17 @@
           <div class="phone-screen">
       <div class="calc-shell">
         <div class="app-status-bar" aria-hidden="true">
-          <span>Kubírovačka</span>
+          <span class="app-brand-mark" aria-hidden="true"></span>
+          <span class="app-status-title">Kubírovačka</span>
           <span class="app-status-dots">
-            <i></i><i></i><i></i>
+            <i>⌁</i><i>◎</i><i>⋮</i>
           </span>
         </div>
         <div class="calc-tabs" aria-label="Režimy kubírování" role="tablist">
-          <button class="calc-tab" type="button" data-mode="zadavani" role="tab" aria-selected="false">Zadávání</button>
-          <button class="calc-tab active" type="button" data-mode="kulatina" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Kulatina</button>
-          <button class="calc-tab" type="button" data-mode="skladane" role="tab" aria-selected="false" aria-controls="panel-skladane" id="tab-skladane">Trám</button>
+          <button class="calc-tab calc-tab-secondary" type="button" data-mode="zadavani" data-secondary="true" role="tab" aria-selected="false">Suráky</button>
+          <button class="calc-tab active" type="button" data-mode="zadavani" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Zadávání</button>
+          <button class="calc-tab" type="button" data-mode="kulatina" role="tab" aria-selected="false">Kulatina</button>
+          <button class="calc-tab calc-tab-secondary" type="button" data-mode="kulatina" data-secondary="true" role="tab" aria-selected="false">Sumář</button>
         </div>
 
         <div class="calc-grid">
