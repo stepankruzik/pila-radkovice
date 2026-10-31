@@ -1,840 +1,353 @@
 (function () {
-  const root = document.querySelector('[data-kubirace]');
-  if (!root) return;
-
-  const tabs = Array.from(root.querySelectorAll('.calc-tab'));
-  const panels = Array.from(root.querySelectorAll('.mode-panel'));
-  const exportCsvButton = document.getElementById('exportCsv');
-  const exportPdfButton = document.getElementById('exportPdf');
-  const importExcelButton = document.getElementById('importExcelData');
-  const excelPasteField = document.getElementById('excelPaste');
-  const csvImportInput = document.getElementById('csvImport');
-  const importDrawer = document.getElementById('importDrawer');
-  const toggleImportButton = document.getElementById('toggleImport');
-  const addLogRowButton = document.getElementById('addLogRow');
-  const clearLogRowsButton = document.getElementById('clearLogRows');
-  const cloneLastRowButton = document.getElementById('cloneLastRow');
-  const logRowsContainer = document.getElementById('logRows');
-  const logRowTemplate = document.getElementById('logRowTemplate');
-  const resultLogTableWrap = document.getElementById('resultLogTableWrap');
-  const resultLogTableBody = document.getElementById('resultLogTableBody');
-  const resultLogEmpty = document.getElementById('resultLogEmpty');
-  const beamPreviewCanvas = document.getElementById('beamPreviewCanvas');
-  const beamPreviewLabel = document.getElementById('beamPreviewLabel');
-  const stackCutModeInput = document.getElementById('stackCutMode');
-  const stackWidthLabel = document.getElementById('stackWidthLabel');
-  const stackHeightField = document.getElementById('stackHeightField');
-  const stackCountXField = document.getElementById('stackCountXField');
-  const stackCountYLabel = document.getElementById('stackCountYLabel');
-  const draftLengthInput = document.getElementById('draftLength');
-  const draftDiameterInput = document.getElementById('draftDiameter');
-  const draftCountInput = document.getElementById('draftCount');
-  const withoutBarkInput = document.getElementById('withoutBark');
+  // Prvky zadávacích polí
+  const lengthInput = document.getElementById('draftLength');
+  const diameterInput = document.getElementById('draftDiameter');
+  const jprlInput = document.getElementById('draftJprl');
+  const countInput = document.getElementById('draftCount');
   const draftVolumeLabel = document.getElementById('draftVolume');
-  const topNetVolumeLabel = document.getElementById('topNetVolume');
-  const topTotalPiecesLabel = document.getElementById('topTotalPieces');
-  const logListStats = document.getElementById('logListStats');
-  const logListVolumeLabel = document.getElementById('logListVolumeLabel');
-  const calcDateLabel = document.getElementById('calcDateLabel');
-  const speciesButtons = Array.from(root.querySelectorAll('[data-species]'));
-  const fieldCards = Array.from(root.querySelectorAll('[data-focus-field]'));
-  const keypadButtons = Array.from(root.querySelectorAll('.pad-key'));
-  const bottomNewEntryButton = document.getElementById('bottomNewEntry');
-  const bottomShowListButton = document.getElementById('bottomShowList');
-  const bottomExportButton = document.getElementById('bottomExport');
+  const topTotalSummary = document.getElementById('topTotalSummary');
+  const listTotalSummary = document.getElementById('listTotalSummary');
+  const dateLabel = document.getElementById('calcDateLabel');
+  const listDateLabel = document.getElementById('listDateLabel');
 
-  const labels = {
-    netLabel: document.getElementById('netVolumeLabel'),
-    weightLabel: document.getElementById('weightEstimateLabel'),
-    net: document.getElementById('netVolume'),
-    weight: document.getElementById('weightEstimate'),
-    title: document.getElementById('calcModeTitle'),
-    text: document.getElementById('calcExplanation')
-  };
-  const weightTile = labels.weight?.closest('.result-tile');
+  // Obalové buňky polí pro vizuální zvýraznění (zlatá linka)
+  const cellLength = document.getElementById('cellLength');
+  const cellDiameter = document.getElementById('cellDiameter');
+  const cellJprl = document.getElementById('cellJprl');
+  const cellCk = document.getElementById('cellCk');
 
-  const densities = {
-    smrk: 450,
-    borovice: 520,
-    modrin: 590,
-    dub: 700
-  };
+  // Tlačítka klávesnice
+  const btnFocusLength = document.getElementById('btnFocusLength');
+  const btnFocusDiameter = document.getElementById('btnFocusDiameter');
+  const btnOddenek = document.getElementById('btnOddenek');
+  const oddenekIcon = document.getElementById('oddenekIcon');
+  const speciesLabel = document.getElementById('speciesLabel');
+  const jakostLabel = document.getElementById('jakostLabel');
+  const modLabel = document.getElementById('modLabel');
 
-  const speciesLabels = {
-    smrk: 'Smrk',
-    borovice: 'Borovice',
-    modrin: 'Modrin',
-    dub: 'Dub'
-  };
+  // Obrazovky a záložky
+  const screenEntry = document.getElementById('screenEntry');
+  const screenList = document.getElementById('screenList');
+  const tabs = document.querySelectorAll('.tab-item');
+  const logItems = document.getElementById('logItems');
 
-  const barkDeductionTables = {
-    smrk: [0.7, 0.7, 0.8, 0.8, 0.8, 0.8, 0.8, 0.9, 0.9, 0.9, 0.9, 1.0, 1.0, 1.0, 1.0, 1.0, 1.1, 1.1, 1.1, 1.2, 1.2, 1.2, 1.3, 1.3, 1.3, 1.3, 1.4, 1.4, 1.4, 1.5, 1.5, 1.5, 1.5, 1.6, 1.6, 1.6, 1.7, 1.7, 1.7, 1.7, 1.8, 1.8, 1.8, 1.9, 1.9, 1.9, 2.0, 2.0, 2.0, 2.1, 2.1, 2.1, 2.2, 2.2, 2.2, 2.3, 2.3, 2.3, 2.4, 2.4, 2.4],
-    borovice: [0.4, 0.4, 0.4, 0.4, 0.5, 0.5, 0.5, 0.5, 0.6, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 0.8, 0.9, 0.9, 1.0, 1.0, 1.1, 1.1, 1.2, 1.2, 1.3, 1.3, 1.3, 1.4, 1.5, 1.5, 1.6, 1.6, 1.7, 1.8, 1.8, 1.9, 2.0, 2.0, 2.1, 2.2, 2.2, 2.3, 2.4, 2.5, 2.5, 2.6, 2.7, 2.8, 2.9, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.7, 3.8, 3.9],
-    modrin: [2.0, 2.0, 2.0, 2.1, 2.1, 2.2, 2.2, 2.2, 2.3, 2.3, 2.4, 2.4, 2.5, 2.5, 2.6, 2.7, 2.7, 2.8, 2.8, 2.9, 2.9, 3.0, 3.1, 3.1, 3.2, 3.3, 3.3, 3.4, 3.5, 3.5, 3.6, 3.7, 3.7, 3.8, 3.9, 3.9, 4.0, 4.1, 4.2, 4.2, 4.3, 4.4, 4.5, 4.5, 4.6, 4.7, 4.8, 4.9, 4.9, 5.0, 5.1, 5.2, 5.3, 5.4, 5.4, 5.5, 5.6, 5.7, 5.8, 5.9, 6.0],
-    dub: [1.7, 1.8, 1.8, 1.9, 1.9, 2.0, 2.1, 2.1, 2.2, 2.2, 2.3, 2.3, 2.4, 2.4, 2.5, 2.5, 2.6, 2.7, 2.7, 2.8, 2.8, 2.9, 2.9, 3.0, 3.0, 3.1, 3.2, 3.2, 3.3, 3.3, 3.4, 3.4, 3.5, 3.5, 3.6, 3.7, 3.7, 3.8, 3.8, 3.9, 3.9, 4.0, 4.1, 4.1, 4.2, 4.2, 4.3, 4.4, 4.4, 4.5, 4.5, 4.6, 4.6, 4.7, 4.8, 4.8, 4.9, 4.9, 5.0, 5.0, 5.1]
-  };
+  // Spodní navigační lišta
+  const btnBottomNew = document.getElementById('btnBottomNew');
+  const btnBottomList = document.getElementById('btnBottomList');
+  const btnBottomSend = document.getElementById('btnBottomSend');
 
-  const sawKerfCm = 0.5;
+  // Modální picker (Dřevina, Jakost, Mód)
+  const pickerModal = document.getElementById('pickerModal');
+  const pickerOptions = document.getElementById('pickerOptions');
 
-  const state = {
-    activeField: 'length',
-    selectedSpecies: 'smrk',
-    items: []
-  };
+  // Modální exportní dialog (Odeslat)
+  const exportModal = document.getElementById('exportModal');
+  const exportFileName = document.getElementById('exportFileName');
+  const exportPrice = document.getElementById('exportPrice');
+  const btnExportCancel = document.getElementById('btnExportCancel');
+  const btnExportCreate = document.getElementById('btnExportCreate');
 
-  const formatVolume = (value) => `${Number(value || 0).toLocaleString('cs-CZ', { minimumFractionDigits: 3, maximumFractionDigits: 3 })} m³`;
-  const formatWeight = (value) => `${Math.round(Number(value || 0)).toLocaleString('cs-CZ')} kg`;
-  const formatDate = (date) => date.toLocaleDateString('cs-CZ');
-  const readNumber = (id) => Number(document.getElementById(id)?.value || 0);
-  const readValue = (id) => document.getElementById(id)?.value || '';
-  const densityFor = (species) => densities[species] || densities.smrk;
-  const speciesLabel = (species) => speciesLabels[species] || speciesLabels.smrk;
-  const toSafeNumber = (value) => Number(String(value ?? '').replace(',', '.').trim());
-  const activeInputMap = {
-    length: draftLengthInput,
-    diameter: draftDiameterInput,
-    count: draftCountInput
-  };
+  // Vnitřní stavy
+  const items = [];
+  let activeInput = lengthInput;
+  let isOddenek = false;
+  let currentSpecies = 'Smrk';
+  let currentJakost = 'I';
+  let currentMod = 'Kulatina'; // "Kulatina", "Kulatina bez kůry", "Na stojato", "Surák"
 
-  const normalizeSpecies = (value) => {
-    const normalized = String(value || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .trim();
+  // Číselníky pro dialogy
+  const SPECIES_LIST = ['Akát', 'Borovice', 'Buk', 'Bříza', 'Dub', 'Jasan', 'Javor', 'Jedle', 'Lípa', 'Modřín', 'Olše', 'Osika', 'Smrk', 'Vrba'];
+  const JAKOST_LIST = ['I - Jakost', 'II - Jakost', 'III - Jakost', 'IV - Jakost', 'V - Jakost', 'VI - Jakost'];
+  const MOD_LIST = ['Kulatina', 'Kulatina bez kůry', 'Na stojato', 'Surák'];
 
-    if (normalized.includes('dub')) return 'dub';
-    if (normalized.includes('modrin')) return 'modrin';
-    if (normalized.includes('borov')) return 'borovice';
-    return 'smrk';
-  };
+  const parseNum = (val) => Number(String(val || '').replace(',', '.')) || 0;
+  const formatVol = (val) => val.toFixed(2) + ' m³';
 
-  const getMode = () => root.querySelector('.calc-tab.active')?.dataset.mode || 'kulatina';
+  // Srážka na kůru v cm podle ČSN 48 0007 / 48 0009
+  const getBarkDeduction = (species, diameter) => {
+    if (currentMod === 'Kulatina bez kůry') {
+      return 0;
+    }
 
-  const calculateGrossVolume = (diameterCm, length, count) => {
-    const radius = (diameterCm / 100) / 2;
-    const grossSingle = Math.PI * radius * radius * length;
-    return grossSingle * count;
-  };
+    const s = (species || '').toLowerCase();
 
-  const barkDeductionFor = (species, diameterCm) => {
-    const table = barkDeductionTables[species] || barkDeductionTables.smrk;
-    const roundedDiameter = Math.round(Number(diameterCm || 0));
-    const clampedDiameter = Math.min(70, Math.max(10, roundedDiameter));
-    return table[clampedDiameter - 10];
+    // 1. Dřeviny s tenkou kůrou (buk, habr)
+    if (s.includes('buk') || s.includes('habr')) {
+      return diameter < 35 ? 1 : 2;
+    }
+
+    // 2. Dřeviny se středně silnou kůrou (smrk, jedle, lípa, olše, osika)
+    if (s.includes('smrk') || s.includes('jedle') || s.includes('lípa') || s.includes('olše') || s.includes('osika')) {
+      if (diameter < 20) return 1;
+      if (diameter < 40) return 2;
+      return 3;
+    }
+
+    // 3. Dřeviny se silnou borkou (modřín, borovice, dub, akát, vrba, jasan, javor, bříza)
+    if (s.includes('modřín') || s.includes('borovice') || s.includes('dub') || s.includes('akát') || s.includes('vrba') || s.includes('jasan') || s.includes('javor') || s.includes('bříza')) {
+      if (diameter < 20) return 2;
+      if (diameter < 35) return 3;
+      return 4;
+    }
+
+    return diameter < 20 ? 1 : 2;
   };
 
-  const calculateNetVolume = (diameterCm, length, count, species) => {
-    const barkDeductionCm = barkDeductionFor(species, diameterCm);
-    const netDiameterCm = Math.max(0, Number(diameterCm || 0) - barkDeductionCm);
-    return calculateGrossVolume(netDiameterCm, length, count);
+  // Výpočet objemu podle Huberova vzorce z průměru bez kůry
+  const calcRowVolume = (length, diameter, species) => {
+    if (length <= 0 || diameter <= 0) return 0;
+    const bark = getBarkDeduction(species || currentSpecies, diameter);
+    const effDiameter = Math.max(1, diameter - bark);
+    const radiusMeters = effDiameter / 200;
+    return Math.PI * radiusMeters * radiusMeters * length;
   };
 
-  const escapeHtml = (value) => String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-
-  const getStackCutMode = () => stackCutModeInput?.value || 'edged';
-
-  const syncStackMode = () => {
-    const isNaOstro = getStackCutMode() === 'na-ostro';
-    if (stackWidthLabel) stackWidthLabel.textContent = isNaOstro ? 'Tloušťka prkna (cm)' : 'Šířka trámu (cm)';
-    if (stackHeightField) stackHeightField.hidden = isNaOstro;
-    if (stackCountXField) stackCountXField.hidden = isNaOstro;
-    if (stackCountYLabel) stackCountYLabel.textContent = isNaOstro ? 'Počet prken' : 'Kusy na výšku';
+  const updateDraft = () => {
+    const l = parseNum(lengthInput.value);
+    const d = parseNum(diameterInput.value);
+    draftVolumeLabel.textContent = formatVol(calcRowVolume(l, d, currentSpecies));
   };
 
-  const getDraftValues = () => ({
-    length: toSafeNumber(draftLengthInput?.value),
-    diameter: toSafeNumber(draftDiameterInput?.value),
-    count: toSafeNumber(draftCountInput?.value) || 0,
-    species: state.selectedSpecies
+  const updateTotals = () => {
+    const totalVol = items.reduce((sum, it) => sum + it.volume, 0);
+    const totalCount = items.length;
+    const str = `${totalVol.toFixed(2).replace('.', ',')} m³ | ${totalCount}ks`;
+    topTotalSummary.textContent = str;
+    listTotalSummary.textContent = str;
+  };
+
+  // Přepnutí aktivního pole + automatické vymazání délky/průměru při překliku
+  const setActiveField = (field) => {
+    activeInput = field;
+
+    if (field === lengthInput || field === diameterInput) {
+      field.value = '';
+      updateDraft();
+    }
+
+    [cellLength, cellDiameter, cellJprl, cellCk].forEach(c => c.classList.remove('is-active'));
+    btnFocusLength.classList.remove('is-highlighted');
+    btnFocusDiameter.classList.remove('is-highlighted');
+
+    if (field === lengthInput) {
+      cellLength.classList.add('is-active');
+      btnFocusLength.classList.add('is-highlighted');
+    } else if (field === diameterInput) {
+      cellDiameter.classList.add('is-active');
+      btnFocusDiameter.classList.add('is-highlighted');
+    } else if (field === jprlInput) {
+      cellJprl.classList.add('is-active');
+    } else if (field === countInput) {
+      cellCk.classList.add('is-active');
+    }
+  };
+
+  // Kliknutí do bílé zadávací karty
+  cellLength.addEventListener('click', () => setActiveField(lengthInput));
+  cellDiameter.addEventListener('click', () => setActiveField(diameterInput));
+  cellJprl.addEventListener('click', () => setActiveField(jprlInput));
+  cellCk.addEventListener('click', () => setActiveField(countInput));
+
+  // Tlačítka Délka a Průměr na klávesnici
+  btnFocusLength.addEventListener('click', () => setActiveField(lengthInput));
+  btnFocusDiameter.addEventListener('click', () => setActiveField(diameterInput));
+
+  // Zadávání číslic 0-9 a tečky přes klávesnici
+  document.querySelectorAll('.key-digit, .key-dot').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (!activeInput) return;
+      const key = btn.dataset.key;
+      let cur = activeInput.value;
+      if (key === '.' && cur.includes('.')) return;
+      activeInput.value = cur + key;
+      updateDraft();
+    });
   });
 
-  const getDraftGross = () => {
-    const draft = getDraftValues();
-    if (draft.length <= 0 || draft.diameter <= 0 || draft.count <= 0) return 0;
-    return calculateGrossVolume(draft.diameter, draft.length, draft.count);
-  };
+  // Přepínač Oddenek
+  btnOddenek.addEventListener('click', () => {
+    isOddenek = !isOddenek;
+    oddenekIcon.textContent = isOddenek ? '☑' : '□';
+    btnOddenek.classList.toggle('is-highlighted', isOddenek);
+  });
 
-  const getDraftNet = () => {
-    const draft = getDraftValues();
-    if (draft.length <= 0 || draft.diameter <= 0 || draft.count <= 0) return 0;
-    if (withoutBarkInput?.checked) {
-      return calculateGrossVolume(draft.diameter, draft.length, draft.count);
-    }
-    return calculateNetVolume(draft.diameter, draft.length, draft.count, draft.species);
-  };
-
-  const syncFieldState = () => {
-    fieldCards.forEach((card) => {
-      card.classList.toggle('is-active', card.dataset.focusField === state.activeField);
-    });
-  };
-
-  const setActiveField = (fieldName) => {
-    state.activeField = fieldName;
-    syncFieldState();
-    root.dataset.keypad = 'visible';
-    activeInputMap[fieldName]?.focus();
-  };
-
-  const hideKeypad = () => {
-    root.dataset.keypad = 'hidden';
-  };
-
-  const showKeypad = () => {
-    root.dataset.keypad = 'visible';
-  };
-
-  const syncSpeciesState = () => {
-    speciesButtons.forEach((button) => {
-      button.classList.toggle('is-active', button.dataset.species === state.selectedSpecies);
-    });
-  };
-
-  const updateDraftDisplay = () => {
-    const draft = getDraftValues();
-
-    if (draftVolumeLabel) {
-      draftVolumeLabel.textContent = formatVolume(getDraftNet());
-    }
-
-    syncFieldState();
-    syncSpeciesState();
-  };
-
-  const renderLogRows = () => {
-    if (!logRowsContainer || !logRowTemplate) return;
-    logRowsContainer.innerHTML = '';
-
-    state.items.forEach((item, index) => {
-      const fragment = logRowTemplate.content.cloneNode(true);
-      const row = fragment.querySelector('[data-log-row]');
-      if (!row) return;
-
-      row.dataset.index = String(index);
-      const title = row.querySelector('[data-log-row-title]');
-      const length = row.querySelector('[data-log-length]');
-      const diameter = row.querySelector('[data-log-diameter]');
-      const count = row.querySelector('[data-log-count]');
-      const species = row.querySelector('[data-log-species]');
-      const volume = row.querySelector('[data-log-row-volume]');
-
-      if (title) title.textContent = String(index + 1);
-      if (length) length.textContent = `${String(item.length).replace('.', ',')} m`;
-      if (diameter) diameter.textContent = `${String(item.diameter).replace('.', ',')} cm`;
-      if (count) count.textContent = `${item.count} ks`;
-      if (species) species.textContent = speciesLabel(item.species);
-      row.dataset.details = `${speciesLabel(item.species)}, ${String(item.length).replace('.', ',')} m, ${String(item.diameter).replace('.', ',')} cm, ${item.count} ks`;
-      if (volume) {
-        volume.textContent = formatVolume(withoutBarkInput?.checked ? item.gross : item.net);
-      }
-
-      logRowsContainer.appendChild(row);
-    });
-
-    if (logListStats) {
-      logListStats.textContent = state.items.length
-        ? `${state.items.length} položek v seznamu`
-        : 'Zatím bez klády';
-    }
-  };
-
-  const renderResultLogTable = () => {
-    if (!resultLogTableBody) return;
-
-    resultLogTableBody.innerHTML = '';
-
-    if (!state.items.length) {
-      const emptyRow = document.createElement('tr');
-      const emptyCell = document.createElement('td');
-      emptyCell.colSpan = 6;
-      emptyCell.className = 'result-log-empty';
-      emptyCell.textContent = resultLogEmpty?.textContent || 'Zatim neni pridana zadna klada.';
-      emptyRow.appendChild(emptyCell);
-      resultLogTableBody.appendChild(emptyRow);
+  // Tlačítko + (Přidání klády do seznamu)
+  document.getElementById('addLogRow').addEventListener('click', () => {
+    const l = parseNum(lengthInput.value);
+    const d = parseNum(diameterInput.value);
+    if (l <= 0 || d <= 0) {
+      if (l <= 0) setActiveField(lengthInput);
+      else setActiveField(diameterInput);
       return;
     }
 
-    state.items.forEach((item, index) => {
-      const row = document.createElement('tr');
-      row.dataset.index = String(index);
+    const vol = calcRowVolume(l, d, currentSpecies);
+    items.push({
+      num: items.length + 1,
+      volume: vol,
+      length: l,
+      diameter: d,
+      species: currentSpecies,
+      jakost: currentJakost,
+      isOddenek: isOddenek,
+      jprl: jprlInput.value,
+      ck: countInput.value
+    });
+
+    diameterInput.value = '';
+    countInput.value = String(items.length + 1);
+    updateDraft();
+    updateTotals();
+    renderList();
+    setActiveField(diameterInput);
+  });
+
+  // Vykreslení seznamu klád
+  const renderList = () => {
+    logItems.innerHTML = '';
+    items.forEach((item, idx) => {
+      const row = document.createElement('article');
+      row.className = 'log-row';
+      const oddenekMark = item.isOddenek ? '<span class="log-tag">x</span>' : '';
       row.innerHTML = `
-        <td>${index + 1}</td>
-        <td>${String(item.length).replace('.', ',')} m</td>
-        <td>${String(item.diameter).replace('.', ',')} cm</td>
-        <td>${item.count} ks</td>
-        <td>${Number(item.net || 0).toLocaleString('cs-CZ', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}</td>
-        <td><button class="result-log-remove" type="button" data-remove-result-row aria-label="Smazat kladu">×</button></td>
+        <div class="log-main-info">
+          <span class="log-num">${idx + 1} ${oddenekMark}</span>
+          <span class="log-vol">${item.volume.toFixed(2)} m³</span>
+        </div>
+        <div class="log-details">${item.species}, ${item.length.toFixed(1)}, ${item.diameter}, ${item.jakost}</div>
+        <button type="button" class="log-del-btn" data-index="${idx}" aria-label="Smazat položku">
+          <svg viewBox="0 0 24 24" class="trash-icon">
+            <path d="M 5 6 L 19 6 L 17.5 21 L 6.5 21 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="3" y1="6" x2="21" y2="6" stroke="currentColor" stroke-width="2"/>
+            <path d="M 9 6 L 9 3 L 15 3 L 15 6" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="9.5" y1="10.5" x2="14.5" y2="15.5" stroke="currentColor" stroke-width="2"/>
+            <line x1="14.5" y1="10.5" x2="9.5" y2="15.5" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
       `;
-      resultLogTableBody.appendChild(row);
+      logItems.appendChild(row);
     });
   };
 
-  const renderBeamPreview = (preview) => {
-    if (!beamPreviewCanvas) return;
-
-    if (!preview || preview.minDiameter <= 0 || preview.totalWidth <= 0 || preview.totalHeight <= 0) {
-      beamPreviewCanvas.innerHTML = '';
-      if (beamPreviewLabel) beamPreviewLabel.textContent = 'Zadej rozmery';
-      return;
-    }
-
-    const canvasSize = 320;
-    const padding = 22;
-    const available = canvasSize - (padding * 2);
-    const scale = available / Math.max(preview.recommendedDiameter, preview.totalWidth, preview.totalHeight);
-    const circleRadius = (preview.recommendedDiameter * scale) / 2;
-    const innerCircleRadius = (preview.minDiameter * scale) / 2;
-    const rectWidth = preview.width * scale;
-    const rectHeight = preview.height * scale;
-    const kerf = preview.sawKerfCm * scale;
-    const blockWidth = preview.totalWidth * scale;
-    const blockHeight = preview.totalHeight * scale;
-    const center = canvasSize / 2;
-    const originX = center - (blockWidth / 2);
-    const originY = center - (blockHeight / 2);
-
-    const pieces = [];
-    for (let row = 0; row < preview.countY; row += 1) {
-      for (let col = 0; col < preview.countX; col += 1) {
-        const y = originY + (row * (rectHeight + kerf));
-        let x = originX + (col * (rectWidth + kerf));
-        let width = rectWidth;
-
-        if (preview.cutMode === 'na-ostro') {
-          const rowCenterY = y + (rectHeight / 2);
-          const offsetFromCenter = Math.abs(rowCenterY - center);
-          const chordWidth = offsetFromCenter >= innerCircleRadius
-            ? 0
-            : 2 * Math.sqrt((innerCircleRadius * innerCircleRadius) - (offsetFromCenter * offsetFromCenter));
-
-          width = Math.max(0, chordWidth);
-          x = center - (width / 2);
-        }
-
-        pieces.push(`
-          <rect
-            x="${x}"
-            y="${y}"
-            width="${width}"
-            height="${rectHeight}"
-            rx="4"
-            fill="rgba(191, 142, 49, 0.72)"
-            stroke="rgba(91, 61, 40, 0.45)"
-            stroke-width="1.2"
-          />
-        `);
-      }
-    }
-
-    beamPreviewCanvas.innerHTML = `
-      <svg class="beam-preview-svg" viewBox="0 0 ${canvasSize} ${canvasSize}" role="img" aria-label="${escapeHtml(`${preview.pieceCount} ks v klade ${preview.recommendedDiameter} cm`)}">
-        <circle cx="${center}" cy="${center}" r="${circleRadius}" fill="rgba(70, 87, 51, 0.12)" stroke="rgba(70, 87, 51, 0.65)" stroke-width="3" />
-        <circle cx="${center}" cy="${center}" r="${innerCircleRadius}" fill="none" stroke="rgba(191, 142, 49, 0.6)" stroke-dasharray="5 5" stroke-width="2" />
-        ${pieces.join('')}
-      </svg>
-    `;
-
-    if (beamPreviewLabel) {
-      beamPreviewLabel.textContent = preview.cutMode === 'na-ostro'
-        ? `${preview.pieceCount} prken | na ostro | klada od ${preview.recommendedDiameter.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })} cm`
-        : `${preview.pieceCount} ks | ${preview.countX} x ${preview.countY} | klada od ${preview.recommendedDiameter.toLocaleString('cs-CZ', { maximumFractionDigits: 0 })} cm`;
-    }
-  };
-
-  const parseImportText = (rawText) => rawText
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter(Boolean)
-    .map((line) => {
-      const cells = line.includes('\t')
-        ? line.split('\t')
-        : line.split(/[;,]/);
-
-      return cells.map((cell) => cell.trim());
-    })
-    .map((cells) => {
-      const diameter = toSafeNumber(cells[0]);
-      const length = toSafeNumber(cells[1]);
-      const count = cells[2] === undefined || cells[2] === '' ? 1 : toSafeNumber(cells[2]);
-      const species = normalizeSpecies(cells[3] || 'smrk');
-
-      if (diameter <= 0 || length <= 0 || count <= 0) {
-        return null;
-      }
-
-      return {
-        diameter,
-        length,
-        count,
-        species,
-        gross: calculateGrossVolume(diameter, length, count),
-        net: calculateNetVolume(diameter, length, count, species)
-      };
-    })
-    .filter(Boolean);
-
-  const resetDraft = (values = {}) => {
-    if (draftLengthInput) draftLengthInput.value = values.length ?? '';
-    if (draftDiameterInput) draftDiameterInput.value = values.diameter ?? '';
-    if (draftCountInput) draftCountInput.value = values.count ?? '1';
-    state.selectedSpecies = values.species || 'smrk';
-    state.activeField = values.activeField || 'length';
-    updateDraftDisplay();
-  };
-
-  const addDraftRow = () => {
-    const draft = getDraftValues();
-
-    if (draft.length <= 0 || draft.diameter <= 0 || draft.count <= 0) {
-      return;
-    }
-
-    state.items.push({
-      ...draft,
-      gross: calculateGrossVolume(draft.diameter, draft.length, draft.count),
-      net: calculateNetVolume(draft.diameter, draft.length, draft.count, draft.species)
-    });
-
-    renderLogRows();
-    renderResultLogTable();
-    update();
-    hideKeypad();
-    resetDraft({
-      length: draft.length,
-      count: draft.count,
-      species: draft.species,
-      activeField: 'diameter'
-    });
-  };
-
-  const clearRows = () => {
-    state.items = [];
-    renderLogRows();
-    renderResultLogTable();
-    update();
-    resetDraft();
-  };
-
-  const buildLogResult = () => {
-    const items = state.items;
-    const gross = items.reduce((sum, item) => sum + item.gross, 0);
-    const net = items.reduce((sum, item) => sum + (item.net || 0), 0);
-    const withoutBarkDeduction = withoutBarkInput?.checked;
-    const usable = withoutBarkDeduction ? gross : net;
-    const weight = items.reduce((sum, item) => sum + ((withoutBarkDeduction ? item.gross : item.net || 0) * densityFor(item.species)), 0);
-    const totalPieces = items.reduce((sum, item) => sum + item.count, 0);
-    const itemLines = items.map((item, index) => (
-      `${index + 1}. ${item.count} ks | ${item.length} m | prumer ${item.diameter} cm | ${speciesLabel(item.species)} | ${formatVolume(item.gross)}`
-    ));
-
-    const summaryLines = items.length
-      ? [
-        `Kulatina: ${items.length} radku / ${totalPieces} ks`,
-        `Vzorec: V = pi * (d / 2)^2 * l, kde d je stredovy prumer v metrech`,
-        '',
-        'Polozky:',
-        ...itemLines,
-        '',
-        `Hruby objem: ${formatVolume(gross)}`,
-        `${withoutBarkDeduction ? 'Objem bez odectu kury' : 'Cisty objem'}: ${formatVolume(usable)}`,
-        `Vysledny objem: ${formatVolume(usable)}`,
-        `Orientacni hmotnost: ${formatWeight(weight)}`
-      ]
-      : [
-        'Kulatina: zatim neni vyplnena zadna platna klada.',
-        'Zadej prvni kladu pres velka pole nebo numerickou klavesnici dole.',
-        '',
-        `Hruby objem: ${formatVolume(gross)}`,
-        `Cisty objem: ${formatVolume(net)}`,
-        `Vysledny objem: ${formatVolume(usable)}`,
-        `Orientacni hmotnost: ${formatWeight(weight)}`
-      ];
-
-    return {
-      gross,
-      net,
-      usable,
-      weight,
-      grossLabel: 'Hruby objem',
-      netLabel: withoutBarkDeduction ? 'Objem bez odectu kury' : 'Cisty objem',
-      yieldLabel: 'Vyuzitelny objem',
-      weightLabel: 'Odhad hmotnosti',
-      grossDisplay: formatVolume(gross),
-      netDisplay: formatVolume(usable),
-      yieldDisplay: formatVolume(usable),
-      weightDisplay: formatWeight(weight),
-      totalPieces,
-      title: 'Kulatina - rychle zadavani po jednotlivych kladach',
-      text: items.length
-        ? withoutBarkDeduction
-          ? `Secteno ${items.length} radku a ${totalPieces} kusu bez odectu kury.`
-          : `Secteno ${items.length} radku a ${totalPieces} kusu. Cisty objem je po odectu kury podle dreviny a stredove tloustky.`
-        : withoutBarkDeduction
-          ? 'Objem se pocita bez odectu kury. Zvol aktivni pole a zadej udaje o klade.'
-          : 'Zvol aktivni pole, zadej delku, prumer a pocet kusu a pak kladu pridej tlacitkem plus.',
-      summary: summaryLines.join('\n'),
-      items
-    };
-  };
-
-  const buildStackResult = () => {
-    const cutMode = getStackCutMode();
-    const isNaOstro = cutMode === 'na-ostro';
-    const length = readNumber('stackLength');
-    const width = readNumber('stackWidth');
-    const height = isNaOstro ? width : readNumber('stackHeight');
-    const allowance = readNumber('stackCoefficient');
-    const countX = isNaOstro ? 1 : Math.max(1, Math.round(readNumber('stackCountX') || 1));
-    const countY = Math.max(1, Math.round(readNumber('stackCountY') || 1));
-
-    const totalWidth = (width * countX) + (Math.max(0, countX - 1) * sawKerfCm);
-    const totalHeight = isNaOstro
-      ? (width * countY) + (Math.max(0, countY - 1) * sawKerfCm)
-      : (height * countY) + (Math.max(0, countY - 1) * sawKerfCm); 
-    const pieceCount = countX * countY;
-    const beamVolume = isNaOstro
-      ? 0
-      : (width / 100) * (height / 100) * length * pieceCount;
-    const minDiameter = isNaOstro
-      ? totalHeight
-      : Math.sqrt((totalWidth * totalWidth) + (totalHeight * totalHeight));
-    const recommendedDiameter = Math.ceil(minDiameter + allowance);
-    const yieldRatio = minDiameter > 0
-      ? ((totalWidth * totalHeight) / (Math.PI * Math.pow(minDiameter / 2, 2))) * 100
-      : 0;
-
-    return {
-      gross: minDiameter,
-      net: recommendedDiameter,
-      usable: yieldRatio,
-      weight: 0,
-      grossLabel: 'Minimum na cepu',
-      netLabel: 'Doporucit od',
-      yieldLabel: isNaOstro ? 'Rez celkem' : 'Objem tramu',
-      grossDisplay: `${minDiameter.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm`,
-      netDisplay: `${recommendedDiameter.toLocaleString('cs-CZ', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} cm`,
-      yieldDisplay: isNaOstro
-        ? `${(Math.max(0, countY - 1) * sawKerfCm).toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm`
-        : `${formatVolume(beamVolume)}`,
-      title: isNaOstro ? 'Prkna na ostro - potrebny prumer na cepu' : 'Tram z klady - potrebny prumer na tenkem konci',
-      text: isNaOstro
-        ? `Pocitano pro ${pieceCount} prken na ostro. Mezi kazdym rezem je automaticky mezera ${sawKerfCm.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm.`
-        : `Pocitano pro ${pieceCount} ks v rozlozeni ${countX} x ${countY}. Mezi kazdym rezem je automaticky mezera ${sawKerfCm.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm. Viteznost prurezu je ${yieldRatio.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} %.`,
-      summary:
-        isNaOstro
-          ? `Prkna na ostro: ${pieceCount} ks, tloustka ${width} cm, delka ${length} m.\n`
-          : `Tramky: ${pieceCount} ks, rozmer ${height} x ${width} cm, delka ${length} m.\n`
-        + `Rozlozeni: ${countX} x ${countY}\n` +
-        `Rez na kotouci: ${sawKerfCm.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm mezi kusy\n` +
-        `Teoreticke minimum klady na cepu: ${minDiameter.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm\n` +
-        `Doporuceny prumer s rezervou: ${recommendedDiameter.toLocaleString('cs-CZ', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} cm\n` +
-        (isNaOstro
-          ? `Celkova vyska rezu: ${totalHeight.toLocaleString('cs-CZ', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} cm`
-          : `Objem hotoveho tramu: ${formatVolume(beamVolume)}`),
-      preview: {
-        cutMode,
-        width,
-        height,
-        countX,
-        countY,
-        pieceCount,
-        sawKerfCm,
-        totalWidth,
-        totalHeight,
-        minDiameter,
-        recommendedDiameter
-      }
-    };
-  };
-
-  const update = () => {
-    updateDraftDisplay();
-
-    const mode = getMode();
-    const result = mode === 'skladane'
-      ? buildStackResult()
-      : buildLogResult();
-
-    if (labels.netLabel) labels.netLabel.textContent = result.netLabel || 'Cisty objem';
-    if (labels.weightLabel) labels.weightLabel.textContent = result.weightLabel || 'Odhad hmotnosti';
-    labels.net.textContent = result.netDisplay || formatVolume(result.net);
-    labels.weight.textContent = result.weightDisplay || formatWeight(result.weight);
-    renderBeamPreview(result.preview);
-    labels.title.textContent = result.title;
-    labels.text.textContent = result.text;
-    if (topNetVolumeLabel) topNetVolumeLabel.textContent = result.netDisplay || formatVolume(result.net);
-    if (topTotalPiecesLabel && result.totalPieces !== undefined) topTotalPiecesLabel.textContent = `${result.totalPieces} ks`;
-
-    const showResultLog = mode === 'kulatina';
-    const showWeightTile = mode === 'kulatina';
-    if (resultLogTableWrap) resultLogTableWrap.hidden = !showResultLog;
-    if (exportCsvButton) exportCsvButton.hidden = !showResultLog;
-    if (exportPdfButton) exportPdfButton.hidden = !showResultLog;
-    if (weightTile) weightTile.hidden = !showWeightTile;
-  };
-
-  const setMode = (mode) => {
-    root.dataset.viewMode = mode;
-    if (mode === 'zadavani') {
-      showKeypad();
-    }
-    tabs.forEach((tab) => {
-      const isActive = tab.dataset.mode === mode && !tab.dataset.secondary;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', String(isActive));
-      tab.setAttribute('tabindex', isActive ? '0' : '-1');
-    });
-
-    panels.forEach((panel) => {
-      panel.hidden = panel.dataset.modePanel !== mode;
-    });
-
-    if (mode === 'zadavani') {
-      const kulatinaPanel = root.querySelector('[data-mode-panel="kulatina"]');
-      if (kulatinaPanel) kulatinaPanel.hidden = false;
-    }
-
-    if (logListVolumeLabel) {
-      logListVolumeLabel.textContent = withoutBarkInput?.checked ? 'Objem bez kůry' : 'Zadané položky';
-    }
-    renderLogRows();
-    update();
-  };
-
-  const appendToActiveField = (value) => {
-    const input = activeInputMap[state.activeField];
-    if (!input) return;
-
-    const next = String(input.value || '');
-    if (value === ',' && next.includes(',')) return;
-    input.value = `${next}${value}`;
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-  };
-
-  const handlePadAction = (action) => {
-    const input = activeInputMap[state.activeField];
-    if (!input) return;
-
-    if (action === 'backspace') {
-      input.value = String(input.value || '').slice(0, -1);
-    }
-
-    if (action === 'clear-field') {
-      input.value = '';
-    }
-
-    input.dispatchEvent(new Event('input', { bubbles: true }));
-  };
-
-  const triggerCsvDownload = () => {
-    if (getMode() !== 'kulatina') {
-      return;
-    }
-
-    const result = buildLogResult();
-    const rows = [
-      ['Polozka', 'Delka_m', 'Prumer_cm_v_kure', 'Pocet_ks', 'Cisty_objem_m3_bez_kury'],
-      ...result.items.map((item, index) => [
-        String(index + 1),
-        String(item.length).replace('.', ','),
-        String(item.diameter).replace('.', ','),
-        String(item.count).replace('.', ','),
-        Number(item.net || 0).toFixed(3).replace('.', ',')
-      ])
-    ];
-
-    const csvContent = rows.map((row) => row.join(';')).join('\n');
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'kubirovacka-kulatina.csv';
-    link.click();
-    URL.revokeObjectURL(link.href);
-  };
-
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => setMode(tab.dataset.mode));
+  // Mazání klády ze seznamu přes koš
+  logItems.addEventListener('click', (e) => {
+    const btn = e.target.closest('.log-del-btn');
+    if (!btn) return;
+    const idx = Number(btn.dataset.index);
+    items.splice(idx, 1);
+    renderList();
+    updateTotals();
   });
 
-  fieldCards.forEach((card) => {
-    card.addEventListener('click', () => setActiveField(card.dataset.focusField));
-  });
+  // Přepínání obrazovek
+  const showEntryScreen = () => {
+    screenEntry.classList.add('active');
+    screenList.classList.remove('active');
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'zadavani'));
+    btnBottomNew.classList.add('active');
+    btnBottomList.classList.remove('active');
+  };
 
-  Object.entries(activeInputMap).forEach(([fieldName, input]) => {
-    if (!input) return;
+  const showListScreen = () => {
+    screenEntry.classList.remove('active');
+    screenList.classList.add('active');
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === 'kulatina'));
+    btnBottomNew.classList.remove('active');
+    btnBottomList.classList.add('active');
+    renderList();
+  };
 
-    input.addEventListener('focus', () => setActiveField(fieldName));
-    input.addEventListener('input', () => updateDraftDisplay());
-    input.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter') return;
-      event.preventDefault();
-      addDraftRow();
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      if (tab.dataset.tab === 'kulatina' || tab.dataset.tab === 'sumar') showListScreen();
+      else showEntryScreen();
     });
   });
 
-  speciesButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      state.selectedSpecies = button.dataset.species || 'smrk';
-      updateDraftDisplay();
+  btnBottomNew.addEventListener('click', showEntryScreen);
+  btnBottomList.addEventListener('click', showListScreen);
+
+  // Modální picker
+  const openPicker = (list, onSelect) => {
+    pickerOptions.innerHTML = '';
+    list.forEach(val => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'picker-item';
+      btn.textContent = val;
+      btn.addEventListener('click', () => {
+        onSelect(val);
+        pickerModal.hidden = true;
+      });
+      pickerOptions.appendChild(btn);
+    });
+    pickerModal.hidden = false;
+  };
+
+  pickerModal.addEventListener('click', (e) => {
+    if (e.target === pickerModal) pickerModal.hidden = true;
+  });
+
+  // Výběr Dřeviny (s okamžitým přepočtem kůry)
+  document.getElementById('btnSpecies').addEventListener('click', () => {
+    openPicker(SPECIES_LIST, (val) => {
+      currentSpecies = val;
+      speciesLabel.textContent = val;
+      updateDraft();
     });
   });
 
-  keypadButtons.forEach((button) => {
-    if (button.dataset.key) {
-      button.addEventListener('click', () => appendToActiveField(button.dataset.key));
+  // Výběr Jakosti
+  document.getElementById('btnJakost').addEventListener('click', () => {
+    openPicker(JAKOST_LIST, (val) => {
+      currentJakost = val.split(' ')[0];
+      jakostLabel.textContent = currentJakost;
+    });
+  });
+
+  // Výběr Módu
+  document.getElementById('btnMod').addEventListener('click', () => {
+    openPicker(MOD_LIST, (val) => {
+      currentMod = val;
+      modLabel.textContent = val.split(' ')[0];
+      updateDraft();
+    });
+  });
+
+  // Exportní dialog (Odeslat)
+  btnBottomSend.addEventListener('click', () => {
+    exportFileName.value = dateLabel.textContent;
+    exportModal.hidden = false;
+  });
+
+  btnExportCancel.addEventListener('click', () => {
+    exportModal.hidden = true;
+  });
+
+  btnExportCreate.addEventListener('click', () => {
+    exportModal.hidden = true;
+    showListScreen();
+  });
+
+  exportModal.addEventListener('click', (e) => {
+    if (e.target === exportModal) exportModal.hidden = true;
+  });
+
+  // Celá obrazovka
+  document.getElementById('toggleFullscreen').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
     }
-
-    if (button.dataset.action) {
-      button.addEventListener('click', () => handlePadAction(button.dataset.action));
-    }
   });
 
-  root.addEventListener('input', (event) => {
-    if (event.target.matches('#stackLength, #stackWidth, #stackHeight, #stackCoefficient, #stackCountX, #stackCountY, #stackCutMode')) {
-      syncStackMode();
-      update();
-    }
-  });
-
-  root.addEventListener('change', (event) => {
-    if (event.target.matches('select, input')) {
-      if (event.target === withoutBarkInput) {
-        renderLogRows();
-      }
-      update();
-    }
-  });
-
-  if (addLogRowButton) {
-    addLogRowButton.addEventListener('click', addDraftRow);
-  }
-
-  if (clearLogRowsButton) {
-    clearLogRowsButton.addEventListener('click', clearRows);
-  }
-
-  if (cloneLastRowButton) {
-    cloneLastRowButton.addEventListener('click', () => {
-      const last = state.items[state.items.length - 1];
-      if (!last) return;
-      resetDraft(last);
-    });
-  }
-
-  if (toggleImportButton && importDrawer) {
-    toggleImportButton.addEventListener('click', () => {
-      importDrawer.hidden = !importDrawer.hidden;
-    });
-  }
-
-  if (logRowsContainer) {
-    logRowsContainer.addEventListener('click', (event) => {
-      const removeButton = event.target.closest('[data-remove-log-row]');
-      if (!removeButton) return;
-
-      const row = removeButton.closest('[data-log-row]');
-      const index = Number(row?.dataset.index);
-      if (Number.isNaN(index)) return;
-
-      state.items.splice(index, 1);
-      renderLogRows();
-      renderResultLogTable();
-      update();
-    });
-  }
-
-  if (resultLogTableBody) {
-    resultLogTableBody.addEventListener('click', (event) => {
-      const removeButton = event.target.closest('[data-remove-result-row]');
-      if (!removeButton) return;
-
-      const row = removeButton.closest('tr');
-      const index = Number(row?.dataset.index);
-      if (Number.isNaN(index)) return;
-
-      state.items.splice(index, 1);
-      renderLogRows();
-      renderResultLogTable();
-      update();
-    });
-  }
-
-  if (importExcelButton && excelPasteField) {
-    importExcelButton.addEventListener('click', () => {
-      const rows = parseImportText(excelPasteField.value);
-      if (!rows.length) return;
-
-      state.items = rows;
-      renderLogRows();
-      renderResultLogTable();
-      update();
-    });
-  }
-
-  if (csvImportInput) {
-    csvImportInput.addEventListener('change', async (event) => {
-      const file = event.target.files?.[0];
-      if (!file) return;
-
-      const text = await file.text();
-      const rows = parseImportText(text);
-      if (rows.length) {
-        state.items = rows;
-        renderLogRows();
-        renderResultLogTable();
-        update();
-      }
-
-      csvImportInput.value = '';
-    });
-  }
-
-  if (exportCsvButton) {
-    exportCsvButton.addEventListener('click', triggerCsvDownload);
-  }
-
-  if (exportPdfButton) {
-    exportPdfButton.addEventListener('click', () => window.print());
-  }
-
-  if (bottomNewEntryButton) {
-    bottomNewEntryButton.addEventListener('click', () => {
-      setMode('zadavani');
-      resetDraft({ count: '1', species: state.selectedSpecies, activeField: 'length' });
-    });
-  }
-
-  if (bottomShowListButton) {
-    bottomShowListButton.addEventListener('click', () => {
-      setMode('zadavani');
-      logRowsContainer?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
-  if (bottomExportButton) {
-    bottomExportButton.addEventListener('click', () => {
-      if (getMode() === 'kulatina') triggerCsvDownload();
-    });
-  }
-
-  if (calcDateLabel) {
-    calcDateLabel.textContent = formatDate(new Date());
-  }
-
-  syncStackMode();
-  resetDraft({
-    length: '4',
-    diameter: '28',
-    count: '1',
-    species: 'smrk'
-  });
-  renderLogRows();
-  renderResultLogTable();
-  setMode('zadavani');
+  // Inicializace
+  const now = new Date();
+  const dateStr = now.toISOString().slice(0, 10);
+  dateLabel.textContent = dateStr;
+  listDateLabel.textContent = dateStr;
+  setActiveField(lengthInput);
+  updateDraft();
+  updateTotals();
 })();

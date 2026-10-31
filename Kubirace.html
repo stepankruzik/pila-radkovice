@@ -3,348 +3,200 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-  <meta name="theme-color" content="#1c2416">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#38492c">
   <title>Kubírovací kalkulačka | Pila Radkovice</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kubirace.css">
 </head>
 <body class="page-kubirace">
 
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <strong>Pila Radkovice</strong>
-        <span>Tradice od roku 1850</span>
-      </a>
-      <button class="hamburger" aria-label="Otevřít menu" aria-expanded="false" aria-controls="main-nav">
-        <span></span>
-        <span></span>
-        <span></span>
+  <div class="calc-device" id="calcDevice">
+
+    <!-- 1. Horní záhlaví -->
+    <header class="app-header">
+      <div class="header-logo">
+        <svg viewBox="0 0 44 44" class="logo-svg">
+          <circle cx="22" cy="22" r="19" fill="none" stroke="#d5ded0" stroke-width="2"/>
+          <path d="M 17 8 C 30 11, 33 27, 21 34" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
+          <path d="M 22 13 C 28 17, 28 26, 21 28" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
+          <path d="M 12 25 L 30 11" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
+        </svg>
+      </div>
+      <div class="header-icons">
+        <span class="h-icon">📈</span>
+        <span class="h-icon">🌐</span>
+        <span class="h-icon">⋮</span>
+      </div>
+    </header>
+
+    <!-- 2. Záložky režimů -->
+    <nav class="app-tabs">
+      <button type="button" class="tab-item" data-tab="suraky">SURÁKY</button>
+      <button type="button" class="tab-item active" data-tab="zadavani">ZADÁVÁNÍ</button>
+      <button type="button" class="tab-item" data-tab="kulatina">KULATINA</button>
+      <button type="button" class="tab-item" data-tab="sumar">SUMÁŘ</button>
+    </nav>
+
+    <!-- OBRAZOVKA 1: ZADÁVÁNÍ -->
+    <main class="screen-view active" id="screenEntry">
+      <!-- Bílá zadávací karta -->
+      <section class="app-entry-card">
+        <div class="entry-meta-row">
+          <span class="meta-date" id="calcDateLabel">2026-10-31</span>
+          <span class="meta-sum" id="topTotalSummary">0,00 m³ | 0ks</span>
+        </div>
+
+        <div class="entry-grid">
+          <!-- Délka -->
+          <div class="entry-cell field-length is-active" id="cellLength">
+            <label for="draftLength">Délka [m]</label>
+            <input type="text" id="draftLength" value="" placeholder="" autocomplete="off" readonly>
+          </div>
+
+          <!-- Průměr -->
+          <div class="entry-cell field-diameter" id="cellDiameter">
+            <div class="cell-head-inline">
+              <label for="draftDiameter">Průměr[cm]</label>
+              <span class="live-cubic" id="draftVolume">0.00 m³</span>
+            </div>
+            <input type="text" id="draftDiameter" value="" placeholder="" autocomplete="off" readonly>
+          </div>
+
+          <!-- JPRL -->
+          <div class="entry-cell field-jprl" id="cellJprl">
+            <label for="draftJprl">JPRL:</label>
+            <input type="text" id="draftJprl" value="" autocomplete="off">
+          </div>
+
+          <!-- Číslo kusu (Č.k.) -->
+          <div class="entry-cell field-ck" id="cellCk">
+            <label for="draftCount">Č.k:</label>
+            <input type="text" id="draftCount" value="1" autocomplete="off">
+          </div>
+        </div>
+      </section>
+
+      <!-- Klávesnice -->
+      <section class="app-keyboard">
+        <!-- ŘÁDEK 1 -->
+        <button type="button" class="key-btn key-text" id="btnSpecies">
+          <span id="speciesLabel">Smrk</span>
+        </button>
+        <button type="button" class="key-btn key-digit" data-key="1">1</button>
+        <button type="button" class="key-btn key-digit" data-key="2">2</button>
+        <button type="button" class="key-btn key-digit" data-key="3">3</button>
+        <button type="button" class="key-btn key-action-plus" id="addLogRow">+</button>
+
+        <!-- ŘÁDEK 2 -->
+        <button type="button" class="key-btn key-text is-highlighted" id="btnFocusLength" data-focus="length">Délka</button>
+        <button type="button" class="key-btn key-digit" data-key="4">4</button>
+        <button type="button" class="key-btn key-digit" data-key="5">5</button>
+        <button type="button" class="key-btn key-digit" data-key="6">6</button>
+
+        <!-- ŘÁDEK 3 -->
+        <button type="button" class="key-btn key-text" id="btnFocusDiameter" data-focus="diameter">Průměr</button>
+        <button type="button" class="key-btn key-digit" data-key="7">7</button>
+        <button type="button" class="key-btn key-digit" data-key="8">8</button>
+        <button type="button" class="key-btn key-digit" data-key="9">9</button>
+        <button type="button" class="key-btn key-oddenek" id="btnOddenek">
+          <span class="icon-square" id="oddenekIcon">□</span>
+          <span class="sub">Oddenek</span>
+        </button>
+
+        <!-- ŘÁDEK 4 -->
+        <button type="button" class="key-btn key-double-text" id="btnJakost">
+          <span class="line-1">Jakost</span>
+          <span class="line-2" id="jakostLabel">I</span>
+        </button>
+        <button type="button" class="key-btn key-double-text" id="btnMod">
+          <span class="line-1">Mód</span>
+          <span class="line-2" id="modLabel">Kulatina</span>
+        </button>
+        <button type="button" class="key-btn key-digit" data-key="0">0</button>
+        <button type="button" class="key-btn key-dot" data-key=".">.</button>
+        <button type="button" class="key-btn key-double-text" id="toggleFullscreen">
+          <span class="line-1">Celá</span>
+          <span class="line-1">obrazovka</span>
+        </button>
+      </section>
+    </main>
+
+    <!-- OBRAZOVKA 2: SEZNAM KULATINA -->
+    <main class="screen-view" id="screenList">
+      <div class="list-meta-bar">
+        <span id="listDateLabel">2026-10-31</span>
+        <span id="listTotalSummary">0,00 m³ | 0ks</span>
+      </div>
+      <div class="log-items-container" id="logItems">
+        <!-- Položky se generují dynamicky -->
+      </div>
+    </main>
+
+    <!-- 5. Spodní navigace -->
+    <footer class="app-bottom-bar">
+      <button type="button" class="b-nav-item active" id="btnBottomNew">
+        <span class="b-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="13" y2="6"/>
+            <line x1="3" y1="12" x2="11" y2="12"/>
+            <line x1="3" y1="18" x2="13" y2="18"/>
+            <line x1="17" y1="8" x2="17" y2="16"/>
+            <line x1="13" y1="12" x2="21" y2="12"/>
+          </svg>
+        </span>
+        <span class="b-label">Nový</span>
       </button>
-      <nav class="nav" id="main-nav">
-        <a href="index.html">Domů</a>
-        <a href="Sluzby.html">Služby</a>
-        <a href="Cenik.html">Ceník</a>
-        <a href="Historie.html">Příběh</a>
-        <a href="Kontakty.html">Kontakt</a>
-        <a class="active" href="Kubirace.html">Kubírování</a>
-      </nav>
-    </div>
-  </header>
 
-  <section class="main-carousel">
-    <div class="carousel-container">
-      <div class="main-slide active" style="background-image: url('img/homepage.jpg');">
-        <div class="carousel-caption">
-          <span class="eyebrow">Nový pracovní režim</span>
-          <h1>Kubírovačka ve stylu aplikace pro rychlé zadávání klád</h1>
-          <p>Hlavní režim kulatiny je teď udělaný jako pracovní obrazovka: velké vstupy, rychlá číselná klávesnice, přidání klády jedním tlačítkem a přehledný seznam už zadaných kusů.</p>
-          <div class="hero-chip-row">
-            <span class="hero-chip">Mobilní styl</span>
-            <span class="hero-chip">Rychlé zadávání</span>
-            <span class="hero-chip">Import a export</span>
-          </div>
-        </div>
+      <button type="button" class="b-nav-item" id="btnBottomList">
+        <span class="b-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"/>
+            <line x1="8" y1="12" x2="21" y2="12"/>
+            <line x1="8" y1="18" x2="21" y2="18"/>
+            <circle cx="4" cy="6" r="1.5" fill="currentColor"/>
+            <circle cx="4" cy="12" r="1.5" fill="currentColor"/>
+            <circle cx="4" cy="18" r="1.5" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="b-label">Seznamy</span>
+      </button>
+
+      <button type="button" class="b-nav-item" id="btnBottomSend">
+        <span class="b-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <polygon points="3,3 22,12 3,21 6,12"/>
+          </svg>
+        </span>
+        <span class="b-label">Odeslat</span>
+      </button>
+    </footer>
+
+    <!-- MODÁLNÍ VÝBĚROVÝ LIST (Dřevina, Jakost, Mód) -->
+    <div class="picker-modal-backdrop" id="pickerModal" hidden>
+      <div class="picker-sheet" id="pickerSheet">
+        <div class="picker-options" id="pickerOptions"></div>
       </div>
     </div>
-  </section>
 
-  <main class="container page-content">
-    <section class="section">
-      <div class="section-head">
-        <span class="eyebrow">Kulatina bez zdržování</span>
-        <h2>Kalkulačka jako pracovní terminál</h2>
-        <p class="lead">Klikneš do pole, čísla sypeš přes klávesnici dole a kládu přidáš jedním tlačítkem. Vedle hned vidíš součet kubíků, kusů i poslední zadané položky.</p>
-      </div>
-    </section>
-
-    <section class="section section-alt" data-kubirace>
-      <div class="phone-stage">
-        <div class="phone-device">
-          <div class="phone-notch" aria-hidden="true"></div>
-          <div class="phone-screen">
-      <div class="calc-shell">
-        <div class="app-status-bar" aria-hidden="true">
-          <span class="app-brand-mark" aria-hidden="true"></span>
-          <span class="app-status-title">Kubírovačka</span>
-          <span class="app-status-dots">
-            <i>⌁</i><i>◎</i><i>⋮</i>
-          </span>
+    <!-- MODÁLNÍ DIALOG: ODESLAT / VYTVOŘIT SOUBOR -->
+    <div class="export-modal-backdrop" id="exportModal" hidden>
+      <div class="export-dialog">
+        <div class="export-field">
+          <label for="exportFileName">Jméno souboru</label>
+          <input type="text" id="exportFileName" value="2026-10-31">
         </div>
-        <div class="calc-tabs" aria-label="Režimy kubírování" role="tablist">
-          <button class="calc-tab calc-tab-secondary" type="button" data-mode="zadavani" data-secondary="true" role="tab" aria-selected="false">Suráky</button>
-          <button class="calc-tab active" type="button" data-mode="zadavani" role="tab" aria-selected="true" aria-controls="panel-kulatina" id="tab-kulatina">Zadávání</button>
-          <button class="calc-tab" type="button" data-mode="kulatina" role="tab" aria-selected="false">Kulatina</button>
-          <button class="calc-tab calc-tab-secondary" type="button" data-mode="kulatina" data-secondary="true" role="tab" aria-selected="false">Sumář</button>
+        <div class="export-field">
+          <label for="exportPrice">Cena za m³</label>
+          <input type="text" id="exportPrice" value="0.0">
         </div>
-
-        <div class="calc-grid">
-          <section class="calc-panel calc-panel-kulatina">
-            <div class="mode-panel" data-mode-panel="kulatina" role="tabpanel" aria-labelledby="tab-kulatina" id="panel-kulatina">
-              <div class="app-shell">
-                <div class="app-topbar">
-                  <div>
-                    <span class="app-date-label">Dnešní zadání</span>
-                    <strong id="calcDateLabel">--.--.----</strong>
-                  </div>
-                  <div class="app-total-inline">
-                    <strong id="topNetVolume">0,000 m³</strong>
-                    <span id="topTotalPieces">0 ks</span>
-                  </div>
-                </div>
-
-                <div class="app-entry">
-                  <div class="app-entry-head">
-                    <div>
-                      <span class="app-mini-label">Aktivní kláda</span>
-                      <h3>Kulatina po jednotlivých kusech</h3>
-                    </div>
-
-                    <div class="app-live-volume">
-                      <div id="draftVolume">0,000 m³</div>
-                    </div>
-                  </div>
-
-                  <div class="app-fields-grid">
-                    <div class="app-field-card is-active" data-focus-field="length">
-                      <span class="app-field-label">Délka (m)</span>
-                      <input class="app-field-input" id="draftLength" type="text" inputmode="decimal" enterkeyhint="next" aria-label="Délka klády v metrech" placeholder="4,0" autocomplete="off">
-                    </div>
-                    <div class="app-field-card" data-focus-field="diameter">
-                      <span class="app-field-label">Průměr (cm)</span>
-                      <input class="app-field-input" id="draftDiameter" type="text" inputmode="decimal" enterkeyhint="next" aria-label="Průměr klády v centimetrech" placeholder="28" autocomplete="off">
-                    </div>
-                    <div class="app-field-card" data-focus-field="count">
-                      <span class="app-field-label">Počet kusů</span>
-                      <input class="app-field-input" id="draftCount" type="text" inputmode="numeric" enterkeyhint="done" aria-label="Počet kusů" value="1" autocomplete="off">
-                    </div>
-                    <div class="app-field-card app-field-card-static">
-                      <span class="app-field-label">Dřevina</span>
-                      <div class="app-species-grid" id="draftSpecies">
-                        <button class="species-chip is-active" type="button" data-species="smrk">Smrk</button>
-                        <button class="species-chip" type="button" data-species="borovice">Borovice</button>
-                        <button class="species-chip" type="button" data-species="modrin">Modřín</button>
-                        <button class="species-chip" type="button" data-species="dub">Dub</button>
-                      </div>
-                    </div>
-                    <label class="bark-toggle" for="withoutBark">
-                      <input id="withoutBark" type="checkbox">
-                      <span class="bark-toggle-mark" aria-hidden="true"></span>
-                      <span>
-                        <strong>Zadávám rozměry bez kůry</strong>
-                        <small>Kůra se v objemu nebude odečítat</small>
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="entry-actions" aria-label="Akce zadávání">
-                  <button class="entry-action entry-action-secondary" type="button" id="cloneLastRow">Poslední znovu</button>
-                  <button class="entry-action entry-action-primary" type="button" id="addLogRow">Přidat kládu</button>
-                </div>
-                <div class="app-pad" hidden>
-                  <div class="pad-main">
-                    <button class="pad-key" type="button" data-key="1">1</button>
-                    <button class="pad-key" type="button" data-key="2">2</button>
-                    <button class="pad-key" type="button" data-key="3">3</button>
-                    <button class="pad-key pad-side" type="button" data-action="backspace">⌫</button>
-
-                    <button class="pad-key" type="button" data-key="4">4</button>
-                    <button class="pad-key" type="button" data-key="5">5</button>
-                    <button class="pad-key" type="button" data-key="6">6</button>
-                    <button class="pad-key pad-side" type="button" data-action="clear-field">C</button>
-
-                    <button class="pad-key" type="button" data-key="7">7</button>
-                    <button class="pad-key" type="button" data-key="8">8</button>
-                    <button class="pad-key" type="button" data-key="9">9</button>
-                    <button class="pad-key pad-side pad-side-add" type="button">+</button>
-
-                    <button class="pad-meta" type="button" id="clearLogRows">Smazat vše</button>
-                    <button class="pad-key" type="button" data-key="0">0</button>
-                    <button class="pad-key" type="button" data-key=",">,</button>
-                    <button class="pad-meta pad-meta-ghost" type="button">Poslední znovu</button>
-                  </div>
-                </div>
-
-                <div class="app-list-head">
-                  <div>
-                    <span class="app-mini-label" id="logListVolumeLabel">Zadané položky</span>
-                    <strong id="logListStats">Zatím bez klády</strong>
-                  </div>
-                  <button class="copy-btn" type="button" id="toggleImport">Import / export</button>
-                </div>
-
-                <div class="import-drawer" id="importDrawer" hidden>
-                  <div class="summary-box import-box">
-                    <strong>Import z Excelu nebo CSV</strong>
-                    <p class="muted" style="margin-top: 8px;">Vlož sloupce v pořadí: <strong>průměr</strong>, <strong>délka</strong>, <strong>počet</strong>, volitelně <strong>dřevina</strong>. Oddělovače mohou být tabulátor, středník nebo čárka.</p>
-                    <textarea class="summary-area input import-area" id="excelPaste" placeholder="28&#9;4&#9;1&#9;smrk&#10;32&#9;5&#9;2&#9;dub"></textarea>
-                    <div class="button-row">
-                      <button class="copy-btn" type="button" id="importExcelData">Vložit data</button>
-                      <label class="copy-btn file-label" for="csvImport">Nahrát CSV</label>
-                      <input id="csvImport" type="file" accept=".csv,text/csv" hidden>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="log-card-list" id="logRows"></div>
-
-                <div class="app-bottom-nav" aria-label="Akce kalkulačky">
-                  <button type="button" class="app-bottom-action" id="bottomNewEntry">
-                    <span class="bottom-action-icon">＋</span>
-                    <span>Nový</span>
-                  </button>
-                  <button type="button" class="app-bottom-action" id="bottomShowList">
-                    <span class="bottom-action-icon">☷</span>
-                    <span>Seznamy</span>
-                  </button>
-                  <button type="button" class="app-bottom-action app-bottom-action-primary" id="bottomExport">
-                    <span class="bottom-action-icon">▶</span>
-                    <span>Odeslat</span>
-                  </button>
-                </div>
-
-                <template id="logRowTemplate">
-                  <article class="log-card" data-log-row>
-                    <div class="log-card-top">
-                      <strong class="log-card-index" data-log-row-title>1</strong>
-                      <button class="log-row-remove" type="button" data-remove-log-row aria-label="Odebrat tuto kládu">×</button>
-                    </div>
-                    <div class="log-card-grid">
-                      <div>
-                        <span class="log-card-label">Délka</span>
-                        <strong data-log-length>0 m</strong>
-                      </div>
-                      <div>
-                        <span class="log-card-label">Průměr</span>
-                        <strong data-log-diameter>0 cm</strong>
-                      </div>
-                      <div>
-                        <span class="log-card-label">Počet</span>
-                        <strong data-log-count>0 ks</strong>
-                      </div>
-                      <div>
-                        <span class="log-card-label">Dřevina</span>
-                        <strong data-log-species>Smrk</strong>
-                      </div>
-                    </div>
-                    <div class="log-card-volume" data-log-row-volume>0,000 m³</div>
-                  </article>
-                </template>
-              </div>
-            </div>
-
-            <div class="mode-panel" data-mode-panel="skladane" role="tabpanel" aria-labelledby="tab-skladane" id="panel-skladane" hidden>
-              <div class="section-head">
-                <span class="eyebrow">Trám z klády</span>
-                <h3>Jak silná musí být kláda na čepu</h3>
-              </div>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="stackCutMode">Typ řezu</label>
-                  <select class="input" id="stackCutMode">
-                    <option value="edged" selected>Hraněné</option>
-                    <option value="na-ostro">Na ostro</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="stackLength">Délka trámu (m)</label>
-                  <input class="input" id="stackLength" type="number" min="0.1" step="0.1" value="4">
-                </div>
-                <div class="field">
-                  <label for="stackWidth" id="stackWidthLabel">Šířka trámu (cm)</label>
-                  <input class="input" id="stackWidth" type="number" min="1" step="1" value="12">
-                </div>
-                <div class="field" id="stackHeightField">
-                  <label for="stackHeight" id="stackHeightLabel">Výška trámu (cm)</label>
-                  <input class="input" id="stackHeight" type="number" min="1" step="1" value="10">
-                </div>
-                <div class="field">
-                  <label for="stackCoefficient">Rezerva na pořez (cm)</label>
-                  <input class="input" id="stackCoefficient" type="number" min="0" step="0.5" value="0">
-                </div>
-                <div class="field" id="stackCountXField">
-                  <label for="stackCountX" id="stackCountXLabel">Kusy vedle sebe</label>
-                  <input class="input" id="stackCountX" type="number" min="1" step="1" value="1">
-                </div>
-                <div class="field">
-                  <label for="stackCountY" id="stackCountYLabel">Kusy na výšku</label>
-                  <input class="input" id="stackCountY" type="number" min="1" step="1" value="1">
-                </div>
-              </div>
-              <div class="beam-preview-card">
-                <div class="beam-preview-head">
-                  <strong>Náhled čela klády</strong>
-                  <span id="beamPreviewLabel">1 kus 10 x 12 cm</span>
-                </div>
-                <div class="beam-preview-canvas" id="beamPreviewCanvas" aria-live="polite"></div>
-              </div>
-            </div>
-          </section>
-
-          <aside class="result-panel">
-            <div class="section-head">
-              <span class="eyebrow">Výstup</span>
-              <h3 id="calcModeTitle">Kulatina - součet objemu po jednotlivých řádcích</h3>
-              <p class="muted" id="calcExplanation">Kulatina se počítá ze středového průměru a délky kmene. Výsledkem je přímý součet objemu jednotlivých klád.</p>
-            </div>
-
-            <div class="result-grid">
-              <div class="result-tile">
-                <small id="netVolumeLabel">Čistý objem</small>
-                <div class="result-value" id="netVolume">0,000 m³</div>
-              </div>
-              <div class="result-tile">
-                <small id="weightEstimateLabel">Odhad hmotnosti</small>
-                <div class="result-value" id="weightEstimate">0 kg</div>
-              </div>
-            </div>
-
-            <div class="log-table-wrap result-log-table-wrap" id="resultLogTableWrap">
-              <table class="log-table result-log-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Délka</th>
-                    <th>Průměr</th>
-                    <th>Ks</th>
-                    <th>m³ bez kůry</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="resultLogTableBody">
-                  <tr>
-                    <td colspan="5" class="result-log-empty" id="resultLogEmpty">Zatím není přidaná žádná kláda.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="button-row">
-              <button class="copy-btn" id="exportCsv" type="button">Export do Excelu (CSV)</button>
-              <button class="copy-btn" id="exportPdf" type="button">Export do PDF</button>
-            </div>
-          </aside>
+        <div class="export-actions">
+          <button type="button" class="export-btn btn-cancel" id="btnExportCancel">ZRUŠIT</button>
+          <button type="button" class="export-btn btn-confirm" id="btnExportCreate">VYTVOŘIT</button>
         </div>
       </div>
-          </div>
-          <div class="phone-home-indicator" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <strong>Pila Radkovice u Budče</strong>
-      <p>Kubírovací kalkulačka a moderní dřevařský web s tradicí od roku 1850.</p>
-      <p class="muted">© <span id="y"></span> | Radkovice u Budče 40, 380 01 Dačice</p>
     </div>
-  </footer>
 
-  <script src="js/site.js" defer></script>
-  <script src="js/kubirace.js" defer></script>
+  </div>
+
+  <script src="js/kubirace.js"></script>
 </body>
 </html>
