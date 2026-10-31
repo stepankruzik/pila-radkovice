@@ -1221,3 +1221,350 @@
     overflow-y: auto;
   }
 }
+
+@media (max-width: 768px) {
+  html,
+  body,
+  .page-kubirace,
+  .page-kubirace .page-content,
+  .page-kubirace [data-kubirace],
+  .page-kubirace .phone-stage,
+  .page-kubirace .phone-device,
+  .page-kubirace .phone-screen {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: 100dvh;
+    overflow: hidden;
+  }
+
+  html,
+  body {
+    position: fixed;
+    inset: 0;
+    overscroll-behavior: none;
+  }
+
+  .page-kubirace .calc-shell {
+    display: grid;
+    grid-template-rows: 28px 62px minmax(0, 1fr);
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .page-kubirace .calc-grid {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .page-kubirace .calc-panel,
+  .page-kubirace .mode-panel,
+  .page-kubirace .app-shell {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .page-kubirace .calc-panel {
+    padding: 0 10px !important;
+    overflow: hidden;
+  }
+
+  .page-kubirace .mode-panel {
+    overflow: hidden;
+  }
+
+  .page-kubirace .app-shell {
+    display: grid;
+    grid-template-rows: 48px minmax(0, 1fr) 54px;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-kubirace .app-topbar {
+    min-height: 48px;
+    height: 48px;
+    padding: 6px 10px;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-shell {
+    grid-template-rows: 48px 42px minmax(0, 1fr) 54px;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-entry,
+  .page-kubirace [data-view-mode="kulatina"] .entry-actions,
+  .page-kubirace [data-view-mode="kulatina"] .app-pad {
+    display: none !important;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-list-head {
+    display: flex !important;
+    min-height: 42px;
+    height: 42px;
+    margin: 0;
+    padding: 5px 0;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-list {
+    display: block !important;
+    min-height: 0;
+    height: auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-top: 1px solid #ddd;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-bottom-nav {
+    position: static;
+    min-height: 54px;
+    height: 54px;
+    margin: 0 -10px;
+    padding: 5px 16px calc(5px + env(safe-area-inset-bottom));
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-shell {
+    grid-template-rows: 40px minmax(0, 1fr) 42px 54px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-topbar {
+    min-height: 40px;
+    height: 40px;
+    padding: 4px 8px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-entry {
+    display: block !important;
+    min-height: 0;
+    height: auto;
+    padding: 6px;
+    overflow: hidden;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-entry-head {
+    height: 34px;
+    margin-bottom: 2px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-entry-head h3 {
+    max-width: 155px;
+    font-size: 0.7rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-live-volume {
+    min-width: 76px;
+    padding: 4px 6px;
+    font-size: 0.78rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-fields-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 2px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-field-card {
+    min-height: 54px;
+    padding: 3px 6px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-field-card-static {
+    grid-column: 2;
+    min-height: 54px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-species-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .species-chip {
+    min-width: 0;
+    padding: 3px 1px;
+    font-size: 0.48rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .bark-toggle {
+    min-height: 40px;
+    padding: 3px 6px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .bark-toggle strong {
+    font-size: 0.63rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .bark-toggle small {
+    font-size: 0.55rem;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .entry-actions {
+    position: static;
+    display: flex;
+    min-height: 42px;
+    height: 42px;
+    padding: 2px 0;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .entry-action {
+    min-height: 38px;
+    height: 38px;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-list-head,
+  .page-kubirace [data-view-mode="zadavani"] .log-card-list {
+    display: none !important;
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-bottom-nav {
+    position: static;
+    min-height: 54px;
+    height: 54px;
+    margin: 0 -10px;
+    padding: 5px 16px calc(5px + env(safe-area-inset-bottom));
+  }
+
+  .page-kubirace [data-view-mode="zadavani"] .app-pad {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-kubirace [data-view-mode="kulatina"] .app-topbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    height: 38px;
+    min-height: 38px;
+    padding: 0 6px;
+    border-bottom: 1px solid #cfd2cf;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-date-label {
+    display: none;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-topbar strong,
+  .page-kubirace [data-view-mode="kulatina"] .app-total-inline strong {
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-topbar > div:first-child {
+    display: block;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-topbar > div:first-child strong::before {
+    content: "";
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-total-inline {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-total-inline span::before {
+    content: "| ";
+    color: #777;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .app-list-head {
+    display: none !important;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-list {
+    display: block !important;
+    height: auto;
+    padding: 0;
+    background: #fafafa;
+    border-top: 0;
+    overflow-y: auto;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card {
+    display: grid;
+    grid-template-columns: 30px 86px minmax(0, 1fr) 28px;
+    align-items: center;
+    gap: 5px;
+    min-height: 54px;
+    height: 54px;
+    padding: 0 7px;
+    border: 0;
+    border-bottom: 1px solid #d8d8d8;
+    border-radius: 0;
+    background: #fafafa;
+    box-shadow: none;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-top {
+    display: contents;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-index {
+    grid-column: 1;
+    grid-row: 1;
+    color: #111;
+    font-size: 0.92rem;
+    text-align: center;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid {
+    display: contents;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid > div {
+    display: none;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid > div:nth-child(1),
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid > div:nth-child(2),
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid > div:nth-child(3),
+  .page-kubirace [data-view-mode="kulatina"] .log-card-grid > div:nth-child(4) {
+    display: none;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-volume {
+    grid-column: 2;
+    grid-row: 1;
+    color: #111;
+    font-size: 0.92rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card-volume::after {
+    content: "";
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-card::after {
+    content: attr(data-details);
+    grid-column: 3;
+    grid-row: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: #9c9c9c;
+    font-size: 0.72rem;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .page-kubirace [data-view-mode="kulatina"] .log-row-remove {
+    grid-column: 4;
+    grid-row: 1;
+    width: 23px;
+    height: 25px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background: #111;
+    color: #fff;
+    font-size: 1.25rem;
+    line-height: 21px;
+  }
+}

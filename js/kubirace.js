@@ -220,11 +220,12 @@
       const species = row.querySelector('[data-log-species]');
       const volume = row.querySelector('[data-log-row-volume]');
 
-      if (title) title.textContent = `Kláda ${index + 1}`;
+      if (title) title.textContent = String(index + 1);
       if (length) length.textContent = `${String(item.length).replace('.', ',')} m`;
       if (diameter) diameter.textContent = `${String(item.diameter).replace('.', ',')} cm`;
       if (count) count.textContent = `${item.count} ks`;
       if (species) species.textContent = speciesLabel(item.species);
+      row.dataset.details = `${speciesLabel(item.species)}, ${String(item.length).replace('.', ',')} m, ${String(item.diameter).replace('.', ',')} cm, ${item.count} ks`;
       if (volume) {
         volume.textContent = formatVolume(withoutBarkInput?.checked ? item.gross : item.net);
       }
