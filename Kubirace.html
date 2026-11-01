@@ -22,9 +22,9 @@
         </svg>
       </div>
       <div class="header-icons">
-        <span class="h-icon">📈</span>
-        <span class="h-icon">🌐</span>
-        <span class="h-icon">⋮</span>
+        <span class="h-icon" title="Aktivní režim">📈</span>
+        <span class="h-icon" title="Offline paměť">🌐</span>
+        <button type="button" class="h-icon-btn" id="btnAppMenu" title="Menu a ceník">⋮</button>
       </div>
     </header>
 
@@ -38,10 +38,16 @@
 
     <!-- OBRAZOVKA 1: ZADÁVÁNÍ -->
     <main class="screen-view active" id="screenEntry">
-      <!-- Bílá zadávací karta -->
       <section class="app-entry-card">
         <div class="entry-meta-row">
           <span class="meta-date" id="calcDateLabel">2026-10-31</span>
+          
+          <!-- Přepínač měření: Střed vs. Čep -->
+          <div class="measure-type-toggle" role="group" aria-label="Místo měření průměru">
+            <button type="button" class="measure-toggle-btn active" id="btnMeasureMid" data-measure="stred">Střed</button>
+            <button type="button" class="measure-toggle-btn" id="btnMeasureTop" data-measure="cep">Čep</button>
+          </div>
+
           <span class="meta-sum" id="topTotalSummary">0,00 m³ | 0ks</span>
         </div>
 
@@ -55,7 +61,7 @@
           <!-- Průměr -->
           <div class="entry-cell field-diameter" id="cellDiameter">
             <div class="cell-head-inline">
-              <label for="draftDiameter">Průměr[cm]</label>
+              <label for="draftDiameter" id="labelDiameterField">Průměr[cm]</label>
               <span class="live-cubic" id="draftVolume">0.00 m³</span>
             </div>
             <input type="text" id="draftDiameter" value="" placeholder="" autocomplete="off" readonly>
@@ -67,7 +73,7 @@
             <input type="text" id="draftJprl" value="" autocomplete="off">
           </div>
 
-          <!-- Číslo kusu (Č.k.) -->
+          <!-- Číslo kusu -->
           <div class="entry-cell field-ck" id="cellCk">
             <label for="draftCount">Č.k:</label>
             <input type="text" id="draftCount" value="1" autocomplete="off">
@@ -84,7 +90,7 @@
         <button type="button" class="key-btn key-digit" data-key="1">1</button>
         <button type="button" class="key-btn key-digit" data-key="2">2</button>
         <button type="button" class="key-btn key-digit" data-key="3">3</button>
-        <button type="button" class="key-btn key-action-plus" id="addLogRow">+</button>
+        <button type="button" class="key-btn key-action-plus" id="addLogRow" title="Přidat kládu">+</button>
 
         <!-- ŘÁDEK 2 -->
         <button type="button" class="key-btn key-text is-highlighted" id="btnFocusLength" data-focus="length">Délka</button>
@@ -113,9 +119,9 @@
         </button>
         <button type="button" class="key-btn key-digit" data-key="0">0</button>
         <button type="button" class="key-btn key-dot" data-key=".">.</button>
-        <button type="button" class="key-btn key-double-text" id="toggleFullscreen">
-          <span class="line-1">Celá</span>
-          <span class="line-1">obrazovka</span>
+        <button type="button" class="key-btn key-backspace" id="btnBackspace" title="Smazat znak">
+          <span class="line-1">⌫</span>
+          <span class="line-2">Zpět</span>
         </button>
       </section>
     </main>
@@ -126,8 +132,56 @@
         <span id="listDateLabel">2026-10-31</span>
         <span id="listTotalSummary">0,00 m³ | 0ks</span>
       </div>
-      <div class="log-items-container" id="logItems">
-        <!-- Položky se generují dynamicky -->
+      <div class="log-items-container" id="logItems"></div>
+    </main>
+
+    <!-- OBRAZOVKA 3: SUMÁŘ -->
+    <main class="screen-view" id="screenSummary">
+      <div class="list-meta-bar">
+        <span>Rekapitulace zakázky</span>
+        <span id="sumarHeaderTotal">0,00 m³</span>
+      </div>
+      <div class="summary-content">
+        <div class="summary-card">
+          <div class="summary-metric-row">
+            <span>Celkový objem:</span>
+            <strong id="sumarTotalVolume">0,00 m³</strong>
+          </div>
+          <div class="summary-metric-row">
+            <span>Celkem kusů:</span>
+            <strong id="sumarTotalCount">0 ks</strong>
+          </div>
+          <div class="summary-metric-row">
+            <span>Z toho oddenky (x):</span>
+            <strong id="sumarOddenkyCount">0 ks</strong>
+          </div>
+          <div class="summary-metric-row highlight">
+            <span>Celková cena zakázky:</span>
+            <strong id="sumarTotalPrice">0 Kč</strong>
+          </div>
+        </div>
+
+        <div class="summary-table-wrap">
+          <div class="summary-table-head-row">
+            <span class="summary-table-head">Rozpad a ocenění podle dřevin</span>
+            <button type="button" class="summary-edit-prices-btn" id="btnOpenPrices">Upravit ceník</button>
+          </div>
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Dřevina</th>
+                <th class="text-right">Kusy</th>
+                <th class="text-right">Objem</th>
+                <th class="text-right">Cena</th>
+              </tr>
+            </thead>
+            <tbody id="sumarSpeciesRows">
+              <tr>
+                <td colspan="4" class="text-center muted">Žádné zadané položky</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </main>
 
@@ -170,14 +224,28 @@
       </button>
     </footer>
 
-    <!-- MODÁLNÍ VÝBĚROVÝ LIST (Dřevina, Jakost, Mód) -->
+    <!-- MODÁLNÍ VÝBĚROVÝ LIST -->
     <div class="picker-modal-backdrop" id="pickerModal" hidden>
       <div class="picker-sheet" id="pickerSheet">
         <div class="picker-options" id="pickerOptions"></div>
       </div>
     </div>
 
-    <!-- MODÁLNÍ DIALOG: ODESLAT / VYTVOŘIT SOUBOR -->
+    <!-- MODÁLNÍ DIALOG: CENÍK DŘEVIN -->
+    <div class="export-modal-backdrop" id="pricesModal" hidden>
+      <div class="export-dialog prices-dialog">
+        <div class="prices-dialog-head">
+          <strong>Ceník dřevin (Kč za m³)</strong>
+          <span class="muted">Nastavte sazbu pro jednotlivé dřeviny</span>
+        </div>
+        <div class="prices-list-scroll" id="pricesListInputs"></div>
+        <div class="export-actions">
+          <button type="button" class="export-btn btn-confirm" id="btnSavePrices">ULOŽIT CENÍK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODÁLNÍ DIALOG: ODESLAT / VYTVOŘIT CSV SOUBOR -->
     <div class="export-modal-backdrop" id="exportModal" hidden>
       <div class="export-dialog">
         <div class="export-field">
@@ -185,8 +253,8 @@
           <input type="text" id="exportFileName" value="2026-10-31">
         </div>
         <div class="export-field">
-          <label for="exportPrice">Cena za m³</label>
-          <input type="text" id="exportPrice" value="0.0">
+          <label for="exportDefaultPrice">Výchozí cena za m³ (pro neoceněné)</label>
+          <input type="number" id="exportDefaultPrice" value="2200" step="50" min="0">
         </div>
         <div class="export-actions">
           <button type="button" class="export-btn btn-cancel" id="btnExportCancel">ZRUŠIT</button>

@@ -21,7 +21,6 @@ html, body {
   min-height: 100dvh;
 }
 
-/* Vnější rám zařízení */
 .calc-device {
   width: 100%;
   max-width: 440px;
@@ -62,6 +61,16 @@ html, body {
   font-size: 1.25rem;
   line-height: 1;
   opacity: 0.92;
+}
+
+.h-icon-btn {
+  background: transparent;
+  border: none;
+  color: #dbe4d5;
+  font-size: 1.45rem;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
 }
 
 /* 2. Záložky režimů */
@@ -113,7 +122,7 @@ html, body {
   display: flex;
 }
 
-/* 3. Bílá zadávací část */
+/* 3. Bílá zadávací karta */
 .app-entry-card {
   background-color: #ffffff;
   padding: 10px 16px 14px;
@@ -128,11 +137,37 @@ html, body {
 .entry-meta-row {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   font-size: 0.88rem;
   font-weight: 700;
   color: #111111;
   padding-bottom: 2px;
+}
+
+/* Přepínač Střed / Čep */
+.measure-type-toggle {
+  display: inline-flex;
+  background: #ebeee8;
+  border-radius: 14px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.measure-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 3px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #65705f;
+  border-radius: 12px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.measure-toggle-btn.active {
+  background: #38492c;
+  color: #ffffff;
 }
 
 .meta-sum {
@@ -175,7 +210,6 @@ html, body {
   min-height: 32px;
 }
 
-/* Zvýraznění aktivního pole */
 .entry-cell.is-active label {
   color: #b78a2e;
 }
@@ -221,7 +255,7 @@ html, body {
 }
 
 .key-btn:active {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.12);
 }
 
 .key-digit {
@@ -235,13 +269,11 @@ html, body {
   color: #f1f4ee;
 }
 
-/* Zlaté aktivní tlačítko v klávesnici (Délka nebo Průměr) */
 .key-btn.is-highlighted {
   background-color: #b78a2e !important;
   color: #ffffff !important;
 }
 
-/* Tlačítko + přes 2 řádky */
 .key-action-plus {
   grid-column: 5;
   grid-row: 1 / 3;
@@ -255,7 +287,6 @@ html, body {
   background-color: #9d7422;
 }
 
-/* Tlačítko Oddenek */
 .key-oddenek {
   grid-column: 5;
   grid-row: 3;
@@ -272,21 +303,25 @@ html, body {
   color: #e5ece0;
 }
 
-.key-double-text {
+.key-double-text, .key-backspace {
   text-align: center;
   line-height: 1.15;
 }
 
-.key-double-text .line-1 {
+.key-double-text .line-1, .key-backspace .line-1 {
   font-size: 0.95rem;
   font-weight: 500;
   color: #ffffff;
 }
 
-.key-double-text .line-2 {
+.key-double-text .line-2, .key-backspace .line-2 {
   font-size: 0.72rem;
   color: #d1ded0;
   margin-top: 3px;
+}
+
+.key-backspace .line-1 {
+  font-size: 1.25rem;
 }
 
 .key-dot {
@@ -295,7 +330,7 @@ html, body {
   padding-bottom: 12px;
 }
 
-/* 5. Obrazovka seznamu (Kulatina) */
+/* 5. Seznam klád (Kulatina) */
 .list-meta-bar {
   display: flex;
   justify-content: space-between;
@@ -378,7 +413,110 @@ html, body {
   display: block;
 }
 
-/* 6. Spodní navigační lišta */
+/* 6. Obrazovka SUMÁŘ */
+.summary-content {
+  flex: 1;
+  background-color: #f7f7f7;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.summary-metric-row strong {
+  color: #111;
+  font-size: 1rem;
+}
+
+.summary-metric-row.highlight {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+  color: #2b3922;
+}
+
+.summary-metric-row.highlight strong {
+  color: #b78a2e;
+  font-size: 1.15rem;
+}
+
+.summary-table-wrap {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.summary-table-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.summary-table-head {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #38492c;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.summary-edit-prices-btn {
+  border: none;
+  background: #eef2eb;
+  color: #38492c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.summary-table th {
+  text-align: left;
+  padding: 6px 4px;
+  color: #888;
+  border-bottom: 1.5px solid #e0e0e0;
+  font-weight: 600;
+}
+
+.summary-table td {
+  padding: 8px 4px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #222;
+}
+
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.muted { color: #999; }
+
+/* 7. Spodní navigace */
 .app-bottom-bar {
   height: 56px;
   min-height: 56px;
@@ -403,9 +541,7 @@ html, body {
   padding: 4px 0;
 }
 
-.b-nav-item:active {
-  opacity: 0.7;
-}
+.b-nav-item:active { opacity: 0.7; }
 
 .b-icon {
   display: flex;
@@ -420,11 +556,11 @@ html, body {
   letter-spacing: 0.02em;
 }
 
-/* 7. Modální popup pro výběry (Dřevina, Jakost, Mód) */
-.picker-modal-backdrop {
+/* 8. Dialogy a popupy */
+.picker-modal-backdrop, .export-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 50;
   display: flex;
   align-items: flex-start;
@@ -432,7 +568,14 @@ html, body {
   padding: 50px 20px 20px;
 }
 
-.picker-modal-backdrop[hidden] {
+.export-modal-backdrop {
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 60;
+}
+
+.picker-modal-backdrop[hidden], .export-modal-backdrop[hidden] {
   display: none;
 }
 
@@ -457,33 +600,71 @@ html, body {
   cursor: pointer;
 }
 
-.picker-item:active {
-  background-color: #eaeaea;
-}
-
-/* 8. Dialog pro export souboru */
-.export-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.export-modal-backdrop[hidden] {
-  display: none;
-}
+.picker-item:active { background-color: #eaeaea; }
 
 .export-dialog {
   background: #ffffff;
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   padding: 20px 22px 14px;
-  border-radius: 4px;
+  border-radius: 6px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.prices-dialog {
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.prices-dialog-head {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prices-dialog-head strong {
+  font-size: 1rem;
+  color: #2b3922;
+}
+
+.prices-list-scroll {
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 4px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price-row-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.price-row-item label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.price-row-item input {
+  width: 105px;
+  padding: 4px 6px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: right;
+  outline: none;
+}
+
+.price-row-item input:focus {
+  border-color: #b78a2e;
 }
 
 .export-field {
@@ -512,7 +693,7 @@ html, body {
   display: flex;
   justify-content: flex-end;
   gap: 16px;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 
 .export-btn {
@@ -525,15 +706,9 @@ html, body {
   letter-spacing: 0.04em;
 }
 
-.btn-cancel {
-  color: #777777;
-}
+.btn-cancel { color: #777777; }
+.btn-confirm { color: #b78a2e; }
 
-.btn-confirm {
-  color: #b78a2e;
-}
-
-/* Mobilní responzivita */
 @media (max-width: 440px) {
   .calc-device {
     max-height: 100dvh;
