@@ -56,41 +56,73 @@
   let currentMod = 'Kulatina'; // "Kulatina", "Kulatina bez kůry", "Na stojato", "Surák"
 
   // Číselníky pro dialogy
-  const SPECIES_LIST = ['Akát', 'Borovice', 'Buk', 'Bříza', 'Dub', 'Jasan', 'Javor', 'Jedle', 'Lípa', 'Modřín', 'Olše', 'Osika', 'Smrk', 'Vrba'];
+  const SPECIES_LIST = [
+    'Akát', 'Borovice', 'Bříza', 'Buk', 'Dub', 'Jasan', 'Jilm',
+    'Jabloň', 'Javor', 'Jeřáb', 'Jírovec', 'Habr', 'Hrušeň',
+    'Lípa', 'Modřín', 'Olše', 'Osika', 'Ořešák', 'Platan',
+    'Slivoň', 'Smrk', 'Švestka', 'Topol', 'Třešeň', 'Vrba', 'Jedle'
+  ];
   const JAKOST_LIST = ['I - Jakost', 'II - Jakost', 'III - Jakost', 'IV - Jakost', 'V - Jakost', 'VI - Jakost'];
   const MOD_LIST = ['Kulatina', 'Kulatina bez kůry', 'Na stojato', 'Surák'];
 
   const parseNum = (val) => Number(String(val || '').replace(',', '.')) || 0;
-  const formatVol = (val) => val.toFixed(2) + ' m³';
+  const formatVol = (val) => val.toFixed(2).replace('.', ',') + ' m³';
 
-  // Srážka na kůru v cm podle ČSN 48 0007 / 48 0009
+  // Celková tloušťka odečtu kůry (2k) podle koeficientů z tabulek.
   const getBarkDeduction = (species, diameter) => {
     if (currentMod === 'Kulatina bez kůry') {
       return 0;
     }
 
     const s = (species || '').toLowerCase();
+    let coefficients;
 
-    // 1. Dřeviny s tenkou kůrou (buk, habr)
-    if (s.includes('buk') || s.includes('habr')) {
-      return diameter < 35 ? 1 : 2;
+    if (s.includes('smrk') || s.includes('jedle')) {
+      coefficients = [0.57723, 0.006897, 1.3123];
+    } else if (s.includes('borovice')) {
+      coefficients = [0.24017, 0.001915, 1.7866];
+    } else if (s.includes('modřín')) {
+      coefficients = [1.7015, 0.008762, 1.4568];
+    } else if (
+      s.includes('buk') ||
+      s.includes('javor') ||
+      s.includes('habr') ||
+      s.includes('jeřáb') ||
+      s.includes('lípa') ||
+      s.includes('osika') ||
+      s.includes('platan') ||
+      s.includes('švest') ||
+      s.includes('slivoň') ||
+      s.includes('třešeň') ||
+      s.includes('hrušeň') ||
+      s.includes('jabloň')
+    ) {
+      coefficients = [-0.04088, 0.16634, 0.56076];
+    } else if (
+      s.includes('dub') ||
+      s.includes('jasan') ||
+      s.includes('olše') ||
+      s.includes('jilm') ||
+      s.includes('akát') ||
+      s.includes('bříza') ||
+      s.includes('vrba') ||
+      s.includes('jírovec') ||
+      s.includes('topol') ||
+      s.includes('ořešák')
+    ) {
+      coefficients = [1.2474, 0.042323, 1.0623];
     }
 
-    // 2. Dřeviny se středně silnou kůrou (smrk, jedle, lípa, olše, osika)
-    if (s.includes('smrk') || s.includes('jedle') || s.includes('lípa') || s.includes('olše') || s.includes('osika')) {
-      if (diameter < 20) return 1;
-      if (diameter < 40) return 2;
-      return 3;
+    if (!coefficients) {
+      return 0;
     }
 
-    // 3. Dřeviny se silnou borkou (modřín, borovice, dub, akát, vrba, jasan, javor, bříza)
-    if (s.includes('modřín') || s.includes('borovice') || s.includes('dub') || s.includes('akát') || s.includes('vrba') || s.includes('jasan') || s.includes('javor') || s.includes('bříza')) {
-      if (diameter < 20) return 2;
-      if (diameter < 35) return 3;
-      return 4;
-    }
-
-    return diameter < 20 ? 1 : 2;
+    const [p0, p1, p2] = coefficients;
+    const additionalDeduction = (
+      (s.includes('ořešák') || s.includes('jabloň')) &&
+      diameter > 41
+    ) ? 1 : 0;
+    return Math.max(0, p0 + p1 * Math.pow(diameter, p2) + additionalDeduction);
   };
 
   // Výpočet objemu podle Huberova vzorce z průměru bez kůry
@@ -212,7 +244,7 @@
       row.innerHTML = `
         <div class="log-main-info">
           <span class="log-num">${idx + 1} ${oddenekMark}</span>
-          <span class="log-vol">${item.volume.toFixed(2)} m³</span>
+          <span class="log-vol">${formatVol(item.volume)}</span>
         </div>
         <div class="log-details">${item.species}, ${item.length.toFixed(1)}, ${item.diameter}, ${item.jakost}</div>
         <button type="button" class="log-del-btn" data-index="${idx}" aria-label="Smazat položku">
