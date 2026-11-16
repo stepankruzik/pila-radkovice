@@ -715,3 +715,164 @@ html, body {
     box-shadow: none;
   }
 }
+
+/* Barevné sjednocení s hlavním webem Pily Radkovice */
+:root {
+  --site-green: #465733;
+  --site-green-dark: #3d4d2c;
+  --site-brown: #3d2b1f;
+  --site-gold: #c5a059;
+  --site-paper: #f4f1ea;
+}
+
+html,
+body {
+  background: var(--site-paper);
+}
+
+.calc-device {
+  background: var(--site-green);
+}
+
+.app-header,
+.app-tabs,
+.app-keyboard,
+.app-bottom-bar {
+  background: var(--site-green);
+}
+
+.app-header {
+  height: 66px;
+  min-height: 66px;
+  padding: 8px 18px;
+  border-bottom: 2px solid var(--site-gold);
+  position: relative;
+  z-index: 20;
+}
+
+.app-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: var(--site-gold);
+  text-decoration: none;
+  line-height: 1.1;
+}
+
+.app-brand strong {
+  font-size: 1.08rem;
+  letter-spacing: 0.02em;
+}
+
+.app-brand span {
+  color: #f6f1e6;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.app-menu-toggle {
+  border: 1px solid var(--site-gold);
+  border-radius: 6px;
+  background: transparent;
+  color: #f6f1e6;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.app-menu-toggle[aria-expanded="true"],
+.app-menu-toggle:active {
+  background: var(--site-gold);
+  color: var(--site-brown);
+}
+
+.app-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  min-width: 190px;
+  padding: 7px;
+  background: var(--site-brown);
+  border: 1px solid var(--site-gold);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(28, 20, 14, 0.3);
+}
+
+.app-menu[hidden] {
+  display: none;
+}
+
+.app-menu a {
+  padding: 10px 12px;
+  color: #f6f1e6;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.86rem;
+}
+
+.app-menu a:hover,
+.app-menu a.active {
+  color: var(--site-gold);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tab-item.active::after {
+  background: var(--site-gold);
+}
+
+.key-action-plus,
+.key-btn.is-highlighted {
+  background: var(--site-gold) !important;
+}
+
+.key-action-plus:active {
+  background: #a88448 !important;
+}
+
+.entry-cell.is-active label,
+.summary-metric-row.highlight strong,
+.btn-confirm {
+  color: var(--site-gold);
+}
+
+.entry-cell.is-active input {
+  border-bottom-color: var(--site-gold);
+}
+
+.measure-toggle-btn.active {
+  background: var(--site-green);
+}
+
+.summary-content {
+  background: var(--site-paper);
+}
+
+.summary-metric-row.highlight {
+  color: var(--site-green-dark);
+}
+
+.summary-table-head,
+.summary-edit-prices-btn {
+  color: var(--site-green);
+}
+
+.summary-edit-prices-btn {
+  background: #e7e2d9;
+}
+
+.b-nav-item.active {
+  color: var(--site-gold);
+}
+
+.b-icon {
+  display: none;
+}
+
+.b-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+}

@@ -72,6 +72,7 @@
   const btnExportCancel = document.getElementById('btnExportCancel');
   const btnExportCreate = document.getElementById('btnExportCreate');
   const btnAppMenu = document.getElementById('btnAppMenu');
+  const appMenu = document.getElementById('appMenu');
 
   // Vnitřní stavy
   let items = [];
@@ -693,28 +694,23 @@
     });
   }
 
-  // Horní menu (tři tečky) -> Ceník a Smazání zakázky
+  // Horní menu webu.
   if (btnAppMenu) {
     btnAppMenu.addEventListener('click', () => {
       vibrate();
-      const choice = confirm("Vyberte akci:\n\nOK = Upravit ceník dřevin\nStorno = Začít novou zakázku (smazat data)");
-      if (choice) {
-        openPricesDialog();
-      } else {
-        if (confirm('Opravdu chcete smazat všechny zadané klády a vyčistit zakázku?')) {
-          items.length = 0;
-          if (countInput) countInput.value = '1';
-          if (lengthInput) lengthInput.value = '';
-          if (diameterInput) diameterInput.value = '';
-          updateDraft();
-          updateTotals();
-          renderList();
-          setActiveField(lengthInput);
-          setScreen('zadavani');
-        }
-      }
+      const isOpen = !appMenu.hidden;
+      appMenu.hidden = isOpen;
+      btnAppMenu.setAttribute('aria-expanded', String(!isOpen));
     });
   }
+
+  document.addEventListener('click', (event) => {
+    if (!appMenu || appMenu.hidden) return;
+    if (!appMenu.contains(event.target) && event.target !== btnAppMenu) {
+      appMenu.hidden = true;
+      btnAppMenu.setAttribute('aria-expanded', 'false');
+    }
+  });
 
   // Inicializace
   const now = new Date();

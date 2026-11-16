@@ -38,8 +38,18 @@
 
   const slides = Array.from(document.querySelectorAll('.main-slide'));
   const dots = Array.from(document.querySelectorAll('.ind-dot'));
+  const infoCards = Array.from(document.querySelectorAll('[data-carousel-info]'));
   let slideIndex = 0;
   let carouselTimer = null;
+
+  if (document.body.classList.contains('page-home')) {
+    const updateHomeScrollState = () => {
+      document.body.classList.toggle('home-scrolled', window.scrollY > 40);
+    };
+
+    updateHomeScrollState();
+    window.addEventListener('scroll', updateHomeScrollState, { passive: true });
+  }
 
   const showSlide = (index) => {
     if (!slides.length) return;
@@ -54,6 +64,10 @@
 
     dots.forEach((dot, idx) => {
       dot.classList.toggle('active', idx === slideIndex);
+    });
+
+    infoCards.forEach((card, idx) => {
+      card.classList.toggle('active', idx === slideIndex);
     });
   };
 
@@ -75,6 +89,13 @@
     showSlide(Number(index || 0));
     restartCarousel();
   };
+
+  infoCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      showSlide(Number(card.dataset.carouselInfo));
+      restartCarousel();
+    });
+  });
 
   showSlide(0);
   restartCarousel();

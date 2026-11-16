@@ -13,19 +13,21 @@
 
     <!-- 1. Horní záhlaví -->
     <header class="app-header">
-      <div class="header-logo">
-        <svg viewBox="0 0 44 44" class="logo-svg">
-          <circle cx="22" cy="22" r="19" fill="none" stroke="#d5ded0" stroke-width="2"/>
-          <path d="M 17 8 C 30 11, 33 27, 21 34" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
-          <path d="M 22 13 C 28 17, 28 26, 21 28" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
-          <path d="M 12 25 L 30 11" fill="none" stroke="#d5ded0" stroke-width="1.8"/>
-        </svg>
-      </div>
-      <div class="header-icons">
-        <span class="h-icon" title="Aktivní režim">📈</span>
-        <span class="h-icon" title="Offline paměť">🌐</span>
-        <button type="button" class="h-icon-btn" id="btnAppMenu" title="Menu a ceník">⋮</button>
-      </div>
+      <a class="app-brand" href="index.html">
+        <strong>Pila Radkovice</strong>
+        <span>Tradice od roku 1850</span>
+      </a>
+      <button type="button" class="app-menu-toggle" id="btnAppMenu" aria-expanded="false" aria-controls="appMenu">
+        Menu
+      </button>
+      <nav class="app-menu" id="appMenu" hidden aria-label="Hlavní navigace">
+        <a href="index.html">Domů</a>
+        <a href="Sluzby.html">Služby</a>
+        <a href="Cenik.html">Ceník</a>
+        <a href="Historie.html">Příběh pily</a>
+        <a href="Kontakty.html">Kontakt</a>
+        <a class="active" href="Kubirace.html">Kubírování</a>
+      </nav>
     </header>
 
     <!-- 2. Záložky režimů -->
